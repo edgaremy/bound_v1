@@ -1,3 +1,5 @@
+-- 47120 = Arthropods taxon_id
+
 -- Get all species of arthropods ordered by name:
 -- (REMEMBER TO REMOVE NAMES WITH SPECIAL CHARACTERS AT THE TOP OF THE FILE)
 .headers on
@@ -7,6 +9,32 @@ SELECT DISTINCT name, ancestry
 FROM taxa
 WHERE rank = 'species'
 AND '/' || ancestry || '/' LIKE '%/47120/%'
+ORDER BY name;
+.output stdout
+
+-- Get all families of arthropods ordered by name:
+-- (REMEMBER TO REMOVE NAMES WITH SPECIAL CHARACTERS AT THE TOP OF THE FILE)
+.headers on
+.mode csv
+.output all_arthropods_families.csv
+SELECT DISTINCT name, ancestry
+FROM taxa
+WHERE rank = 'family'
+AND '/' || ancestry || '/' LIKE '%/47120/%'
+ORDER BY name;
+.output stdout
+
+
+
+-- For a given family, find the number of observation for each species:
+.headers on
+.mode csv
+.output all_families_species.csv
+SELECT name, t1.taxon_id, ancestry, COUNT(t1.taxon_id) as count
+FROM taxa t1
+JOIN observations o1 ON t1.taxon_id = o1.taxon_id
+WHERE rank = 'species'
+AND '/' || ancestry || '/' LIKE '%/999086/%'
 ORDER BY name;
 .output stdout
 
