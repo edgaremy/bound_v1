@@ -8,3 +8,5 @@ c77ec1edeaf25c725ca0693b7568ee0b.jpg
 Image collée.png
 runs/
 yolov8n.pt
+yolov8n-cls.pt
+.vscode/launch.json
