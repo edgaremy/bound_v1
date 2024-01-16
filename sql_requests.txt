@@ -1,0 +1,31 @@
+-- Get all species of arthropods ordered by name:
+-- (REMEMBER TO REMOVE NAMES WITH SPECIAL CHARACTERS AT THE TOP OF THE FILE)
+.headers on
+.mode csv
+.output all_arthropods_species.csv
+SELECT DISTINCT name, ancestry
+FROM taxa
+WHERE rank = 'species'
+AND '/' || ancestry || '/' LIKE '%/47120/%'
+ORDER BY name;
+.output stdout
+
+
+-- SELECT name, ancestry
+-- FROM taxa t1
+-- JOIN observations o1 ON t1.taxon_id = o1.taxon_id
+-- WHERE t1.rank = 'species'
+-- AND quality_grade = 'research'
+-- AND '/' || t1.ancestry || '/' LIKE '%/47120/%'
+-- .output stdout
+
+-- SELECT COUNT(*)
+-- FROM (
+--     SELECT name, ancestry, o1.observation_uuid
+--     FROM taxa t1
+--     JOIN observations o1 ON t1.taxon_id = o1.taxon_id
+--     WHERE t1.rank = 'species'
+--     AND quality_grade = 'research'
+--     AND '/' || t1.ancestry || '/' LIKE '%/47120/%'
+--     AND t1.name = 'Cyzicus californicus'
+-- ) AS subquery;
