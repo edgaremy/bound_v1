@@ -1,11 +1,11 @@
 -- 47120 = Arthropods taxon_id
 
 -- Get all species of arthropods ordered by name:
--- (REMEMBER TO REMOVE NAMES WITH SPECIAL CHARACTERS AT THE TOP OF THE FILE)
+-- (REMEMBER TO REMOVE ANY NAMES WITH SPECIAL CHARACTERS AT THE TOP OF THE FILE)
 .headers on
 .mode csv
 .output all_arthropods_species.csv
-SELECT DISTINCT name, ancestry
+SELECT DISTINCT name, taxon_id, ancestry
 FROM taxa
 WHERE rank = 'species'
 AND '/' || ancestry || '/' LIKE '%/47120/%'
@@ -13,11 +13,11 @@ ORDER BY name;
 .output stdout
 
 -- Get all families of arthropods ordered by name:
--- (REMEMBER TO REMOVE NAMES WITH SPECIAL CHARACTERS AT THE TOP OF THE FILE)
+-- (REMEMBER TO REMOVE ANY NAMES WITH SPECIAL CHARACTERS AT THE TOP OF THE FILE)
 .headers on
 .mode csv
 .output all_arthropods_families.csv
-SELECT DISTINCT name, ancestry
+SELECT DISTINCT name, taxon_id, ancestry
 FROM taxa
 WHERE rank = 'family'
 AND '/' || ancestry || '/' LIKE '%/47120/%'
