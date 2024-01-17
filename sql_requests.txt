@@ -30,12 +30,15 @@ ORDER BY name;
 .headers on
 .mode csv
 .output all_families_species.csv
-SELECT name, t1.taxon_id, ancestry, COUNT(t1.taxon_id) as count
+SELECT name, t1.taxon_id, ancestry, COUNT(*) as count
 FROM taxa t1
 JOIN observations o1 ON t1.taxon_id = o1.taxon_id
 WHERE rank = 'species'
-AND '/' || ancestry || '/' LIKE '%/999086/%'
-ORDER BY name;
+AND '/' || ancestry || '/' LIKE '%/154351/%'
+--AND o1.quality_grade = 'research'
+GROUP BY name, t1.taxon_id
+ORDER BY count DESC
+LIMIT 1;
 .output stdout
 
 
