@@ -26,37 +26,24 @@ ORDER BY name;
 
 
 
--- For a given family, find the number of observation for each species:
-.headers on
-.mode csv
-.output all_families_species.csv
-SELECT name, t1.taxon_id, ancestry, COUNT(*) as count
+-- For a given family (e.g. 154351), find the specie with the most observations:
+SELECT name, t1.taxon_id, '154351' as family, COUNT(*) as count
 FROM taxa t1
 JOIN observations o1 ON t1.taxon_id = o1.taxon_id
 WHERE rank = 'species'
 AND '/' || ancestry || '/' LIKE '%/154351/%'
---AND o1.quality_grade = 'research'
 GROUP BY name, t1.taxon_id
 ORDER BY count DESC
 LIMIT 1;
-.output stdout
 
+-- For a given family (e.g. 154351), find the specie with the most photos:
+SELECT name, t1.taxon_id, '154351' as family, COUNT(*) as count
+FROM taxa t1
+JOIN observations o1 ON t1.taxon_id = o1.taxon_id
+JOIN photos p1 ON p1.observation_uuid = o1.observation_uuid
+WHERE rank = 'species'
+AND '/' || ancestry || '/' LIKE '%/154351/%'
+GROUP BY name, t1.taxon_id
+ORDER BY count DESC
+LIMIT 1;
 
--- SELECT name, ancestry
--- FROM taxa t1
--- JOIN observations o1 ON t1.taxon_id = o1.taxon_id
--- WHERE t1.rank = 'species'
--- AND quality_grade = 'research'
--- AND '/' || t1.ancestry || '/' LIKE '%/47120/%'
--- .output stdout
-
--- SELECT COUNT(*)
--- FROM (
---     SELECT name, ancestry, o1.observation_uuid
---     FROM taxa t1
---     JOIN observations o1 ON t1.taxon_id = o1.taxon_id
---     WHERE t1.rank = 'species'
---     AND quality_grade = 'research'
---     AND '/' || t1.ancestry || '/' LIKE '%/47120/%'
---     AND t1.name = 'Cyzicus californicus'
--- ) AS subquery;

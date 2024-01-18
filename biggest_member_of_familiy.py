@@ -1,19 +1,39 @@
 import sqlite3
 import pandas as pd
 
+sort_by = 'photos_count' # 'observations_count' or 'photos_count'
+
 # SQL command parts
-sql_cmd_begin = """
-SELECT name, t1.taxon_id, ancestry, COUNT(*) as count
+if sort_by == 'observations_count':
+    sql_cmd_part1 = """SELECT name, t1.taxon_id, '"""
+
+    sql_cmd_part2 = """' as family, COUNT(*) as count
 FROM taxa t1
 JOIN observations o1 ON t1.taxon_id = o1.taxon_id
 WHERE rank = 'species'
 AND '/' || ancestry || '/' LIKE '%/"""
 
-sql_cmd_end = """/%'
+    sql_cmd_part3 = """/%'
 GROUP BY name, t1.taxon_id
 ORDER BY count DESC
 LIMIT 1;
-"""
+    """
+
+elif sort_by == 'photos_count':
+    sql_cmd_part1 = """SELECT name, t1.taxon_id, '"""
+
+    sql_cmd_part2 = """' as family, COUNT(*) as count
+FROM taxa t1
+JOIN observations o1 ON t1.taxon_id = o1.taxon_id
+JOIN photos p1 ON p1.observation_uuid = o1.observation_uuid
+WHERE rank = 'species'
+AND '/' || ancestry || '/' LIKE '%/"""
+
+    sql_cmd_part3 = """/%'
+GROUP BY name, t1.taxon_id
+ORDER BY count DESC
+LIMIT 1;
+    """
 
 # Open database and read list of families:
 connection = sqlite3.connect("/mnt/disk1/datasets/iNaturalist/inat.db")
@@ -32,7 +52,7 @@ for index, row in families.iterrows():
     # print(index, row['name'], row['taxon_id'])
 
     # create sql command (FIND MEMBER OF FAMILY WITH MOST OBSERVATIONS):
-    sql_command = sql_cmd_begin + str(row['taxon_id']) + sql_cmd_end
+    sql_command = sql_cmd_part1 + str(row['taxon_id']) + sql_cmd_part2 + str(row['taxon_id']) + sql_cmd_part3
 
     # execute the statement
     db_df = pd.read_sql_query(sql_command, connection)
