@@ -47,3 +47,16 @@ GROUP BY name, t1.taxon_id
 ORDER BY count DESC
 LIMIT 1;
 
+
+-- For a given specie (e.g. 62083), get info of all photos to scrap them later:
+SELECT taxon_id, photo_id, extension, photos.observation_uuid
+FROM observations
+INNER JOIN photos on photos.observation_uuid = observations.observation_uuid where taxon_id=232394;
+
+.headers on
+.mode csv
+.output all_arthropods_families.csv
+SELECT taxon_id, photo_id, extension, photos.observation_uuid
+FROM observations
+INNER JOIN photos on photos.observation_uuid = observations.observation_uuid where taxon_id=232394;
+.output stdout
