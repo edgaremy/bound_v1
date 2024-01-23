@@ -9,17 +9,11 @@ sql_cmd_part2 = """;"""
 
 # Open database and read list of species:
 connection = sqlite3.connect("/mnt/disk1/datasets/iNaturalist/inat.db")
-species = pd.read_csv('/mnt/disk1/datasets/iNaturalist/requested_CSVs/all_arthropods_families.csv', delimiter=',')
+species = pd.read_csv('/mnt/disk1/datasets/iNaturalist/requested_CSVs/biggest_members_by_observations.csv', delimiter=',')
 
-current_specie = 'A'  #TODO
-
-# Loop through families:
-print("Computing families starting with " + current_letter)
+# Loop through species:
 for index, row in species.iterrows():
-    new_letter = row['name'][0]
-    if new_letter != current_letter:
-        current_letter = new_letter
-        print("Computing families starting with " + current_letter)
+    print("Current Specie: " + row['name'])
     
     # print(index, row['name'], row['taxon_id'])
 
@@ -29,9 +23,9 @@ for index, row in species.iterrows():
     # execute the statement
     db_df = pd.read_sql_query(sql_command, connection)
     if index == 0:
-        db_df.to_csv('biggest_members.csv', index=False, header=True, mode='w')
+        db_df.to_csv('photos_to_scrap.csv', index=False, header=True, mode='w')
     else:
-        db_df.to_csv('biggest_members.csv', index=False, mode='a', header=False)
+        db_df.to_csv('photos_to_scrap.csv', index=False, mode='a', header=False)
 
 
 # close the connection

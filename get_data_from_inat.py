@@ -5,6 +5,9 @@ from tqdm import tqdm
 import asyncio
 import sqlite3
 
+dest_file = "/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT1/"
+src_csv = "requested_CSVs/photos_to_scrap_LIMIT1.csv"
+separate_classes_in_folders = False
 
 
 def background(f):
@@ -14,29 +17,34 @@ def background(f):
 	return wrapped
 	
 @background
-def get_image(image_url, target_dest):
-	wget.download(image_url, target_dest)
+def get_image(image_url, target_dest, pbar):
+	wget.download(image_url, target_dest, bar=None)
+	pbar.update(1)
 	return
 
-
-if not os.path.exists('Pictures/'):
-	os.mkdir('Pictures')
+if not os.path.exists(dest_file + 'Pictures/'):
+	os.mkdir(dest_file + 'Pictures')
 
 
 # Load CSV of selected pictures : #taxon_id	#photo_id #extension #observation_uuid
-with open('selected_classes.csv', newline='') as csvfile:
+with open(src_csv, newline='') as csvfile:
 	lines = csvfile.read().split("\n")
-	for i,row in enumerate(tqdm(lines)):
+	pbar = tqdm(total=len(lines))
+	for i,row in enumerate(lines):
 		data = row.split(',')
 		if i > 0 and len(data) > 2:
 			taxon_id = data[0]
 			photo_id = data[1]
 			extension = data[2]
-		
-			if not os.path.exists('Pictures/' + taxon_id):
-				os.mkdir('Pictures/' + taxon_id)
-				
+
+			if separate_classes_in_folders:
+
+				if not os.path.exists(dest_file + 'Pictures/' + taxon_id):
+					os.mkdir(dest_file + 'Pictures/' + taxon_id)
+				target_dest = dest_file + 'Pictures/' + taxon_id + '/' + taxon_id + '_' + photo_id + '.' + extension
+			else:
+				target_dest = dest_file + 'Pictures/' + taxon_id + '_' + photo_id + '.' + extension
+			
 			image_url = f"https://inaturalist-open-data.s3.amazonaws.com/photos/{photo_id}/original.{extension}"
-			target_dest = 'Pictures/' + taxon_id + '/' + photo_id + '.' + extension
-			get_image(image_url, target_dest)
+			get_image(image_url, target_dest, pbar)
 
