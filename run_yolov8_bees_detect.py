@@ -6,13 +6,13 @@ from ultralytics import YOLO
 
 # Load a model
 # model = YOLO("yolov8n.yaml")  # build a new model from scratch
-#model = YOLO("yolov8n.pt")  # load a pretrained model (recommended for training)
+model = YOLO("yolov8n.pt")  # load a pretrained model (recommended for training)
 
-model = YOLO('runs/detect/train12/weights/last.pt')
+#model = YOLO('runs/detect/train13/weights/last.pt')
 
 
 # Use the model
-model.train(data="/mnt/disk1/datasets/Projet_Bees_Detection_Basile/data_bees_detection/BD_71_visited/Bees_Detection.yaml", epochs=30)  # train the model
+model.train(data="/mnt/disk1/datasets/Projet_Bees_Detection_Basile/data_bees_detection/BD_71_visited/Bees_Detection(1class).yaml", epochs=100)  # train the model
 metrics = model.val()  # evaluate model performance on the validation set
 #results = model("/home/edgarremy/Documents/CODE/bound_v1/splitted_dataset/Task_Lepinoc/images/val/1d5d9f5767cfa18c8ad2594651f94753_0_2.jpg")  # predict on an image
 #path = model.export(format="onnx")
