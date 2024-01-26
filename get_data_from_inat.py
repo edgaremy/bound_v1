@@ -5,9 +5,10 @@ from tqdm import tqdm
 import asyncio
 import sqlite3
 
-dest_file = "/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT1/"
-src_csv = "requested_CSVs/photos_to_scrap_LIMIT1.csv"
-separate_classes_in_folders = False
+dest_file = "/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT50/"
+src_csv = "requested_CSVs/photos_to_scrap_LIMIT50.csv"
+separate_classes_in_folders = True
+img_size = "original" # "small" (240px)/ "medium" (500px)/ "large" (1024px)/ "original" (2024px)
 
 
 def background(f):
@@ -45,6 +46,6 @@ with open(src_csv, newline='') as csvfile:
 			else:
 				target_dest = dest_file + 'Pictures/' + taxon_id + '_' + photo_id + '.' + extension
 			
-			image_url = f"https://inaturalist-open-data.s3.amazonaws.com/photos/{photo_id}/original.{extension}"
+			image_url = f"https://inaturalist-open-data.s3.amazonaws.com/photos/{photo_id}/{img_size}.{extension}"
 			get_image(image_url, target_dest, pbar)
 
