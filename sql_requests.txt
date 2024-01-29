@@ -25,6 +25,14 @@ ORDER BY name;
 .output stdout
 
 
+-- For a given specie (e.g. 47219) find the number of observations:
+SELECT COUNT(*) FROM observations WHERE taxon_id=47219;
+
+-- For a given specie (e.g. 154351) (we also know its family id e.g. 47221), find the number of observations:
+SELECT name, t1.taxon_id, '47221' as family, COUNT(*) as count
+FROM taxa t1
+JOIN observations o1 ON t1.taxon_id = o1.taxon_id
+WHERE t1.taxon_id=47219;
 
 -- For a given family (e.g. 154351), find the specie with the most observations:
 SELECT name, t1.taxon_id, '154351' as family, COUNT(*) as count

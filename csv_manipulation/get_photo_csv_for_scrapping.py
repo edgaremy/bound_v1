@@ -9,7 +9,7 @@ sql_cmd_part2 = """;"""
 
 # Open database and read list of species:
 connection = sqlite3.connect("/mnt/disk1/datasets/iNaturalist/inat.db")
-species = pd.read_csv('/mnt/disk1/datasets/iNaturalist/requested_CSVs/biggest_members_by_observations.csv', delimiter=',')
+species = pd.read_csv('requested_CSVs/biggest_french_member_by_obs.csv', delimiter=',')
 
 # Loop through species:
 for index, row in species.iterrows():
@@ -17,7 +17,7 @@ for index, row in species.iterrows():
     
     # print(index, row['name'], row['taxon_id'])
 
-    # create sql command (FIND MEMBER OF FAMILY WITH MOST OBSERVATIONS):
+    # create sql command (FIND ALL PHOTOS OF THE SPECIE):
     sql_command = sql_cmd_part1 + str(row['taxon_id']) + sql_cmd_part2
 
     # execute the statement
