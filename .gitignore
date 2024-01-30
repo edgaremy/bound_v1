@@ -11,3 +11,4 @@ yolov8n.pt
 yolov8n-cls.pt
 .vscode/launch.json
 requested_CSVs/old/
+requested_CSVs/photos_to_scrap.csv
