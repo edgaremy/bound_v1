@@ -2,16 +2,25 @@ import os
 import csv
 from PIL import Image
 
+import convert_bbox_format as bbox_converter
+
+import csv_manipulation.get_hierarchy as hierarchy
+
 def convert_labels_to_csv(images_path, labels_path, csv_file):
     with open(csv_file, 'w', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(['image_path', 'xmin', 'xmax', 'ymin', 'ymax', 'label', 'image_width', 'image_height'])
+        writer.writerow(['image_path', 'xmin', 'xmax', 'ymin', 'ymax', 'label', 'image_width', 'image_height', 'class', 'order', 'family', 'genus', 'species'])
         
         for image in os.listdir(images_path):
                 image_name = os.path.splitext(image)[0]
                 image_path = os.path.join(images_path, image)
                 txt_path = os.path.join(labels_path, image_name + '.txt')
                 
+                # Get hierarchy
+                taxon_id = image_name.split('_')[0]
+                hierarchy_list = hierarchy.get_hierarchy_from_taxon_id(taxon_id)
+                class_, order, family, genus, species = hierarchy_list
+
                 if os.path.exists(txt_path):
                     with open(txt_path, 'r') as f:
                         for line in f:
@@ -20,17 +29,12 @@ def convert_labels_to_csv(images_path, labels_path, csv_file):
 
                             image_width, image_height = get_image_dimensions(image_path)
                             # label, x, y, w, h = line
-                            xmin, ymin, xmax, ymax = get_bbox_from_yolo_format(image_width, image_height, line[1:5])
+                            xmin, ymin, xmax, ymax = bbox_converter.get_bbox_from_yolo_format(image_width, image_height, line[1:5])
                             label = 'Arthropod'
-                            writer.writerow([image, xmin, xmax, ymin, ymax, label, image_width, image_height])
 
-def get_bbox_from_yolo_format(image_width, image_height, bbox):
-    x, y, w, h = bbox
-    xmin = int((x - w / 2) * image_width)
-    xmax = int((x + w / 2) * image_width)
-    ymin = int((y - h / 2) * image_height)
-    ymax = int((y + h / 2) * image_height)
-    return xmin, ymin, xmax, ymax
+                            writer.writerow([image, xmin, xmax, ymin, ymax, label, image_width, image_height, class_, order, family, genus, species])
+                else:
+                    writer.writerow([image, '', '', '', '', label, '', '', class_, order, family, genus, species])
 
 def get_image_dimensions(image_path):
     with Image.open(image_path) as img:
@@ -38,7 +42,7 @@ def get_image_dimensions(image_path):
     return image_width, image_height
 
 # Usage example
-images_path = '/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT1/dataset/images'
-labels_path = '/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT1/dataset/labels'
+images_path = '/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT1/dataset(prediction)/images'
+labels_path = '/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT1/dataset(prediction)/labels'
 csv_file = 'labels.csv'
 convert_labels_to_csv(images_path, labels_path, csv_file)
