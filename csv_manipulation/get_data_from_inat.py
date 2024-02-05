@@ -5,9 +5,9 @@ from tqdm import tqdm
 import asyncio
 import sqlite3
 
-dest_file = "/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT50/"
-src_csv = "requested_CSVs/photos_to_scrap_LIMIT50.csv"
-separate_classes_in_folders = True
+dest_file = "/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT2/"
+src_csv = "requested_CSVs/photos_to_scrap_NUMBER2.csv"
+separate_classes_in_folders = False
 img_size = "original" # "small" (240px)/ "medium" (500px)/ "large" (1024px)/ "original" (2024px)
 
 
