@@ -10,5 +10,5 @@ from collections import Counter
 model = YOLO('runs/detect/train16/weights/best.pt') # load best.pt or last.pt of local model
 
 # Export the model
-# WARNING: This may need tensorflow<=2.13.1 to work
+# WARNING: This may need tensorflow<=2.13.1 to work (pip install tensorflow==2.13.1)
 model.export(format="tflite", optimize=True)  # export to TensorFlow Lite
