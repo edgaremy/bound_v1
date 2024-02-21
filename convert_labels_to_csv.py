@@ -42,7 +42,7 @@ def get_image_dimensions(image_path):
     return image_width, image_height
 
 # Usage example
-images_path = '/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT2/Pictures'
-labels_path = '/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT2/dataset(prediction)/labels'
+images_path = '/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT3/Pictures'
+labels_path = '/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT3/dataset(prediction)/labels'
 csv_file = 'labels.csv'
 convert_labels_to_csv(images_path, labels_path, csv_file)
