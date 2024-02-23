@@ -16,9 +16,9 @@ from tqdm import tqdm
 import convert_bbox_format as bbox_converter
 
 
-json_folder = '/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT2/dataset(prediction)/json_validated'
+json_folder = '/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT3/dataset(prediction)/json_validated'
 #image_folder = '/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT1/dataset(prediction)/images'
-labels_output_folder = '/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT2/dataset(prediction)/labels_validated'
+labels_output_folder = '/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT3/dataset(prediction)/labels_validated'
 
 
 

@@ -59,10 +59,10 @@ def split_dataset(labels_input_folder, labels_output_folder, image_input_folder,
     print('Total number of test images: {}'.format(num_test))
 
 # Example usage
-labels_input_folder = '/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT2/dataset(prediction)/labels_validated'
-labels_output_folder = '/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT2/dataset/labels'
-image_input_folder = '/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT2/Pictures'
-image_output_folder = '/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT2/dataset/images'
+labels_input_folder = '/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT3/dataset(prediction)/labels_validated'
+labels_output_folder = '/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT3/dataset/labels'
+image_input_folder = '/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT3/Pictures'
+image_output_folder = '/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT3/dataset/images'
 train_ratio = 0.9
 val_ratio = 0.1
 test_ratio = 0.0 # test_ratio equals (1 - train_ratio - val_ratio)
