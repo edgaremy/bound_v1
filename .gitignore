@@ -14,3 +14,6 @@ yolov8m-cls.pt
 .vscode/launch.json
 requested_CSVs/old/
 requested_CSVs/photos_to_scrap.csv
+__pycache__/
+csv_manipulation/__pycache__/
+calibration_image_sample_data_20x128x128x3_float32.npy
