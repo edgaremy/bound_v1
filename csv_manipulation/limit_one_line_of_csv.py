@@ -53,9 +53,9 @@ def keep_each_element_number_n_with_different_observation(input_file, output_fil
 
 # Usage example
 input_file = 'requested_CSVs/photos_to_scrap.csv'
-output_file = 'requested_CSVs/photos_to_scrap_NUMBER4.csv'
+output_file = 'requested_CSVs/photos_to_scrap_NUMBER5.csv'
 column_name = 'taxon_id'
 column_name_2 = 'observation_uuid'
-number_to_keep = 4
+number_to_keep = 5
 
 keep_each_element_number_n_with_different_observation(input_file, output_file, column_name, column_name_2, number_to_keep)

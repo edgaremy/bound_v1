@@ -5,11 +5,12 @@ from tqdm import tqdm
 import asyncio
 import sqlite3
 
-dest_file = "/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT4/"
-src_csv = "requested_CSVs/photos_to_scrap_NUMBER4.csv"
+dest_file = "/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT5/"
+src_csv = "requested_CSVs/photos_to_scrap_NUMBER5.csv"
 separate_classes_in_folders = False
 img_size = "original" # "small" (240px)/ "medium" (500px)/ "large" (1024px)/ "original" (2024px)
 
+os.makedirs(dest_file, exist_ok=True)
 
 def background(f):
 	def wrapped(*args, **kwargs):
