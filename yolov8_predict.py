@@ -10,7 +10,7 @@ from collections import Counter
 # model = YOLO("yolov8n.yaml")  # build a new model from scratch
 # model = YOLO("yolov8n.pt")  # load a pretrained model (recommended for training)
 
-model = YOLO('runs/detect/train24/weights/best.pt') # load best.pt or last.pt of local model
+model = YOLO('runs/detect/train25/weights/best.pt') # load best.pt or last.pt of local model
 
 
 # Use the model
@@ -52,7 +52,7 @@ model = YOLO('runs/detect/train24/weights/best.pt') # load best.pt or last.pt of
 
 
 
-folder_path = "/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT5/Pictures"
+folder_path = "/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT6/Pictures"
 
 file_paths = []
 for root, dirs, files in os.walk(folder_path):

@@ -7,7 +7,7 @@ model = YOLO('runs/detect/train16/weights/best.pt') # load best.pt or last.pt of
 
 
 # Use the model
-model.train(data="/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT4/dataset/Arthropods_LIMIT4.yaml", epochs=100)  # train the model
+model.train(data="/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT5/dataset/Arthropods_LIMIT5.yaml", epochs=100)  # train the model
 
 # Evaluate model performance on the validation set
 metrics = model.val()

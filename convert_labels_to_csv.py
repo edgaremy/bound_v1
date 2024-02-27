@@ -34,7 +34,7 @@ def convert_labels_to_csv(images_path, labels_path, csv_file):
 
                             writer.writerow([image, xmin, xmax, ymin, ymax, label, image_width, image_height, class_, order, family, genus, species])
                 else:
-                    writer.writerow([image, '', '', '', '', label, '', '', class_, order, family, genus, species])
+                    writer.writerow([image, '', '', '', '', '', '', '', class_, order, family, genus, species])
 
 def get_image_dimensions(image_path):
     with Image.open(image_path) as img:
@@ -42,7 +42,7 @@ def get_image_dimensions(image_path):
     return image_width, image_height
 
 # Usage example
-images_path = '/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT5/Pictures'
-labels_path = '/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT5/dataset(prediction)/labels'
-csv_file = 'labels.csv'
+images_path = '/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT6/Pictures'
+labels_path = '/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT6/dataset(prediction)/labels'
+csv_file = '/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT6/dataset(prediction)/labels.csv'
 convert_labels_to_csv(images_path, labels_path, csv_file)
