@@ -3,7 +3,7 @@ import shutil
 from convert_json_to_dataset import convert_json_to_labels
 from convert_labels_to_csv import convert_labels_to_csv
 from get_data_from_inat import get_images_from_inat
-from limit_one_line_of_csv import keep_each_element_number_n_with_different_observation
+from limit_one_line_of_csv_v2 import keep_each_element_number_n_with_different_observation
 from merge_datasets import create_yaml, merge_datasets
 from split_dataset_detect import split_dataset
 from yolov8_predict import find_last_predict_number, predict_images_with_yolov8
@@ -13,7 +13,7 @@ from yolov8_train import find_last_model_number, train_yolov8
 ## MAIN SCRIPT TO CALL OTHER FUNCTIONS IN THE SAME FOLDER ##
 
 # Current Dataset Number (where the new Annotation JSON-files are):
-DATASET_NUMBER = 6
+DATASET_NUMBER = 7
 
 # Convert JSON to Labels:
 print("\n##### CONVERTING JSON TO LABELS #####\n")
@@ -43,11 +43,12 @@ create_yaml(yaml_path)
 # Get List of Images from NEXT observations and Download them from iNaturalist:
 print("\n##### GETTING & DOWNLOADING LIST OF IMAGES FOR NEXT ANNOTATIONS (ASYNC) #####\n")
 input_file = 'requested_CSVs/photos_to_scrap.csv'
-output_file = 'requested_CSVs/photos_to_scrap_NUMBER'+ str(DATASET_NUMBER + 1) +'.csv'
-keep_each_element_number_n_with_different_observation(input_file, output_file, DATASET_NUMBER + 1)
-dest_file = "/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT" + str(DATASET_NUMBER + 1) + "/"
-src_csv = "requested_CSVs/photos_to_scrap_NUMBER" + str(DATASET_NUMBER + 1) + ".csv"
-get_images_from_inat(src_csv, dest_file)
+input_file_2 = 'requested_CSVs/french_arthro_observations_list.csv'
+family_file = 'requested_CSVs/biggest_french_member_by_obs.csv'
+file_list = 'requested_CSVs/photos_to_scrap_NUMBER' + str(DATASET_NUMBER + 1) + '.csv'
+dest_folder = "/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT" + str(DATASET_NUMBER + 1) + "/"
+keep_each_element_number_n_with_different_observation(input_file, input_file_2, family_file, file_list, DATASET_NUMBER + 1)
+get_images_from_inat(file_list, dest_folder)
 
 # Train YOLOv8 on the New Complete Dataset:
 print("\n##### MEANWHILE, TRAINING YOLOv8 ON THE NEW DATASET #####\n")

@@ -1,9 +1,12 @@
 import sqlite3
 import pandas as pd
 
+
+limit_obs = 50
+
 # Open database and read list of families:
 connection = sqlite3.connect("/mnt/disk1/datasets/iNaturalist/inat.db")
-species = pd.read_csv('requested_CSVs/all_french_arthropods.csv', delimiter=',')
+species = pd.read_csv('requested_CSVs/all_french_arthropod_families.csv', delimiter=',')
 
 current_letter = 'A'
 
@@ -17,15 +20,15 @@ for index, row in species.iterrows():
     
     # print(index, row['name'], row['taxon_id'])
 
-    # create sql command (FIND MEMBER OF FAMILY WITH MOST OBSERVATIONS):
-    sql_command = f"SELECT name, t1.taxon_id, '{row['family']}' as family, COUNT(*) as count FROM taxa t1 JOIN observations o1 ON t1.taxon_id = o1.taxon_id WHERE t1.taxon_id={row['taxon_id']};"
+    # create sql command (LIST 50 OBSERVATIONS OF THE FAMILY):
+    sql_command = f"SELECT t1.taxon_id, '{row['taxon_id']}' as family, observation_uuid FROM observations o1 JOIN taxa t1 ON t1.taxon_id = o1.taxon_id WHERE rank = 'species' AND '/' || ancestry || '/' LIKE '%/{row['taxon_id']}/%' ORDER BY t1.taxon_id LIMIT {limit_obs};"
 
     # execute the statement
     db_df = pd.read_sql_query(sql_command, connection)
     if index == 0:
-        db_df.to_csv('french_arthro_observations_count.csv', index=False, header=True, mode='w')
+        db_df.to_csv('french_arthro_observations_list.csv', index=False, header=True, mode='w')
     else:
-        db_df.to_csv('french_arthro_observations_count.csv', index=False, header=False, mode='a')
+        db_df.to_csv('french_arthro_observations_list.csv', index=False, header=False, mode='a')
 
 
 # close the connection

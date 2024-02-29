@@ -24,9 +24,24 @@ AND '/' || ancestry || '/' LIKE '%/47120/%'
 ORDER BY name;
 .output stdout
 
-
 -- For a given specie (e.g. 47219) find the number of observations:
 SELECT COUNT(*) FROM observations WHERE taxon_id=47219;
+
+-- For a given family (e.g. 154351) find the associated observations for each specie of the family:
+SELECT t1.taxon_id, '154351' as family, observation_uuid
+FROM observations o1
+JOIN taxa t1 ON t1.taxon_id = o1.taxon_id
+WHERE rank = 'species'
+AND '/' || ancestry || '/' LIKE '%/154351/%'
+ORDER BY t1.taxon_id
+LIMIT 50;
+
+-- Get first photo of a given observation (e.g. 546e29b9-a0ff-44a2-a75f-bf7f9c0ab785):
+SELECT taxon_id, photo_id, extension, p1.observation_uuid
+FROM observations o1
+INNER JOIN photos p1 on p1.observation_uuid = o1.observation_uuid
+WHERE o1.observation_uuid='546e29b9-a0ff-44a2-a75f-bf7f9c0ab785'
+LIMIT 1;
 
 -- For a given specie (e.g. 154351) (we also know its family id e.g. 47221), find the number of observations:
 SELECT name, t1.taxon_id, '47221' as family, COUNT(*) as count

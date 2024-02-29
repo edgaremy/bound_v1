@@ -47,10 +47,10 @@ def get_images_from_inat(src_csv, dest_file, separate_classes_in_folders=False, 
 				get_image(image_url, target_dest, pbar)
 	
 	
-	
+
 	
 # Usage example:
-# csv_number ='6'
+# csv_number ='8'
 # dest_file = "/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT" + csv_number + "/"
 # src_csv = "requested_CSVs/photos_to_scrap_NUMBER" + csv_number + ".csv"
 # separate_classes_in_folders = False
