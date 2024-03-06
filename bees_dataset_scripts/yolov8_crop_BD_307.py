@@ -30,12 +30,21 @@ def yolo_predict_and_crop(subfolder_path):
     for i in range(num_chunks):
         start = i * chunk_size
         end = (i + 1) * chunk_size
-        model.predict(file_paths[start:end], save_crop=True, show=False, save=False, save_txt=False)
+        try:
+            model.predict(file_paths[start:end], save_crop=True, show=False, save=False, save_txt=False)
+        except:
+            print('A prediction error happened')
+            continue
 
     remaining_files = len(file_paths) % chunk_size
     if remaining_files > 0:
         start = num_chunks * chunk_size
         end = start + remaining_files
+        try:
+            model.predict(file_paths[start:end], save_crop=True, show=False, save=False, save_txt=False)
+        except:
+            print('A prediction error happened')
+            return
         model.predict(file_paths[start:end], save_crop=True, show=False, save=False, save_txt=False)
 
 
