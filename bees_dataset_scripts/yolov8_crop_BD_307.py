@@ -80,6 +80,7 @@ def crop_BD_307(csv_file, input_folder, output_folder):
                     shutil.move(file_path, output_subfolder)
     
     # remove empty predict directory
+    print("Done.\nRemoving empty predict directory.")
     shutil.rmtree('runs/detect/predict' + str(next_predict_number))
 
 # Usage example
