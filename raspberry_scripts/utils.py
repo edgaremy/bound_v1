@@ -1,4 +1,5 @@
 import cv2
+import numpy as np
 
 def draw_box(
         image: np.ndarray,
