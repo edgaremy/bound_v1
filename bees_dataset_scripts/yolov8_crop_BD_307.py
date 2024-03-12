@@ -48,7 +48,7 @@ def yolo_predict_and_crop(subfolder_path):
         model.predict(file_paths[start:end], save_crop=True, show=False, save=False, save_txt=False)
 
 
-def crop_BD_307(csv_file, input_folder, output_folder):
+def crop_BD_307(csv_file, input_folders, output_folder):
     # Load classnames from CSV
     with open(csv_file, 'r') as file:
         reader = csv.reader(file)
