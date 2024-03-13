@@ -21,11 +21,11 @@ i = 0
 remaining_classes = []
 # conf_mat = np.zeros((len(remaining_classes), len(remaining_classes)))
 conf_mat = np.zeros((306, 306))
-for folder in os.listdir("/mnt/disk1/datasets/Projet_Bees_Detection_Basile/data_bees_detection/BD307/BD_307_cropped/dataset/val"):
+for folder in os.listdir("/mnt/disk1/datasets/Projet_Bees_Detection_Basile/data_bees_detection/BD307/BD_307_cropped/dataset/test"):
     class_idx = list(class_names.keys())[list(class_names.values()).index(folder)]
     remaining_classes.append(class_idx)
     # print("Class index: ", class_idx)
-    results = model(os.path.join("/mnt/disk1/datasets/Projet_Bees_Detection_Basile/data_bees_detection/BD307/BD_307_cropped/dataset/val/", folder),
+    results = model(os.path.join("/mnt/disk1/datasets/Projet_Bees_Detection_Basile/data_bees_detection/BD307/BD_307_cropped/dataset/test/", folder),
                     classes = remaining_classes,
                     verbose=False)  # predict on a folder
     print("Predicted images of class: ", folder)
