@@ -5,54 +5,28 @@ import pandas as pd
 
 import get_hierarchy as hierarchy
 
-def plot_class_repartition(dataset_folder):
-    class_counts = {}
-    
-    # Iterate over the subfolders in the dataset folder
-    for class_folder in os.listdir(dataset_folder):
-        class_path = os.path.join(dataset_folder, class_folder)
-        
-        # Count the number of images in each class folder
-        if os.path.isdir(class_path):
-            class_counts[class_folder] = len(os.listdir(class_path))
-    
-    # Plot the circular graph
-    labels = class_counts.keys()
-    counts = class_counts.values()
-    
-    plt.pie(counts, labels=labels, autopct='%1.1f%%')
-    plt.axis('equal')
-    plt.show()
 
-# Example Usage:
-# dataset_folder = "/mnt/disk1/datasets/Projet_Bees_Detection_Basile/data_bees_detection/BD307/BD_307_cropped/dataset/test"
-# plot_class_repartition(dataset_folder)
-
-
-def plot_class_hierarchy_repartition(dataset_folder):
+def plot_class_hierarchy_repartition_from_taxon_id(dataset_folders):
     class_counts = {}
     class_hierarchies = {}
-    # Iterate over the subfolders in the dataset folder
-    for class_folder in os.listdir(dataset_folder):
-        class_path = os.path.join(dataset_folder, class_folder)
-        
-        # Count the number of images in each class folder
-        if os.path.isdir(class_path):
-            if class_folder not in class_counts:
-                class_counts[class_folder] = len(os.listdir(class_path))
+
+    for dataset_folder in dataset_folders:
+
+        # Iterate over the image files in the dataset folder
+        for file in os.listdir(dataset_folder):
+            class_id = file.split('_')[0]
+            if class_id not in class_counts:
+                class_counts[class_id] = 1
             else:
-                class_counts[class_folder] += len(os.listdir(class_path))
-            
-            # Get the hierarchy of the class folder
-            if class_folder not in class_hierarchies:
+                class_counts[class_id] += 1
+            if class_id not in class_hierarchies:
                 try:
-                    class_hierarchies[class_folder] = hierarchy.get_hierarchy_from_name(class_folder)
+                    class_hierarchies[class_id] = hierarchy.get_hierarchy_from_taxon_id(class_id)
                 except:
-                    genus = class_folder.split(' ')[0]
-                    class_hierarchies[class_folder] = [None, None, None, genus, class_folder]
-                class_hierarchies[class_folder].append(class_counts[class_folder])
+                    print("ERROR, could not find hierarchy for class_id=", class_id)
+                class_hierarchies[class_id].append(class_counts[class_id])
             else:
-                class_hierarchies[class_folder][5] = class_counts[class_folder]
+                class_hierarchies[class_id][5] = class_counts[class_id]
 
     data = {
         'class_': [class_hierarchies[class_folder][0] for class_folder in class_counts.keys()],
@@ -69,13 +43,18 @@ def plot_class_hierarchy_repartition(dataset_folder):
     df_.fillna('unknown', inplace=True)
 
     # Création du diagramme en treillis
-    fig = px.sunburst(df_, path=['class_', 'order', 'family', 'genus', 'species'], color='family', values='count')
+    fig = px.sunburst(df_, path=['class_', 'order', 'family'], color='order', values='count')
+    # fig = px.sunburst(df_, path=['class_', 'order', 'family', 'genus', 'species'], color='family', values='count')
 
     # Affichage du graphique
+    # fig.update_layout(uniformtext = dict(minsize = 10, mode='hide'))
     fig.show()
     fig.write_html("./export.html")
     # fig.write_image("hierarchie_especes.svg")
 
 # Example Usage:
-dataset_folders = "/mnt/disk1/datasets/Projet_Bees_Detection_Basile/data_bees_detection/BD_71_visited/classes"
-plot_class_hierarchy_repartition(dataset_folders)
+dataset_folders = ["/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT7/dataset/images/test",
+                   "/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT7/dataset/images/train",
+                   "/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT7/dataset/images/val"]
+# dataset_folders = ["/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT7/dataset/images/val"]
+plot_class_hierarchy_repartition_from_taxon_id(dataset_folders)
