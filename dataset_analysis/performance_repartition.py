@@ -1,7 +1,6 @@
 import os
 import matplotlib.pyplot as plt
 import plotly.express as px
-import plotly.graph_objects as go
 import pandas as pd
 from ultralytics import YOLO
 import numpy as np
@@ -19,6 +18,7 @@ def make_ordered_unique(list_):
             indexes.append(i)
     return np.array(output), np.array(indexes)
 
+# Associate each element of current_hierarchy to an index of the upper hierarchy
 def get_upper_hierarchy_index(current_hierarchy, upper_hierarchies):
     # Associate each unique upper_hierarchy to an index
     upper_hierarchy_unique, upper_hierarchy_indexes = make_ordered_unique(upper_hierarchies)

@@ -73,7 +73,20 @@ def plot_class_hierarchy_repartition(dataset_folders):
 
     # Création du diagramme en treillis
     fig = px.sunburst(df_, path=['class_', 'order', 'family', 'genus', 'species'], color='family', values='count')
+    fig = px.sunburst(df_,
+                      path=['class_', 'order', 'family', 'genus', 'species'],
+                      color='family', values='count',
+                      template='presentation',
+                      color_discrete_sequence=px.colors.qualitative.Plotly)
+                    #   hover_data={'count': True, 'class_': False, 'order': False, 'family': False, 'genus': False, 'species': False})
+    # fig = px.sunburst(df_, path=['class_', 'order', 'family', 'genus', 'species'], color='family', values='count')
 
+    fig.update_layout(hoverlabel=dict(font_size=18, font_family="Rockwell"))
+    fig.update_traces(hovertemplate=
+                      '<b>%{label}</b><br><br>' +
+                      'Total Images: %{value}<br>' +
+                      'Taxon: %{id}<extra></extra>')
+    # print(fig.data[0]) # Print template variables
     # Affichage du graphique
     fig.show()
     fig.write_html("./export.html")
