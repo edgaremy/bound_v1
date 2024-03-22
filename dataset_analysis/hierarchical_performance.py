@@ -28,6 +28,7 @@ def create_hierarchy_matrices(csv_file):
     genus_to_family = np.zeros((nb_family, nb_genus))
     family_to_order = np.zeros((nb_order, nb_family))
     order_to_class = np.zeros((nb_class, nb_order))
+    
     for i in range(nb_specie):
         # species -> genus
         genus_species = hierarchy.at[i, "genus"]
