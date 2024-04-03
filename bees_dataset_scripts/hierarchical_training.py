@@ -61,7 +61,6 @@ class CustomImageDataset(Dataset):
             image = self.transform(image)
         if self.target_transform:
             label = self.target_transform(label)
-        # label = np.expand_dims(label,-1)
         # make label hot one vector
         label = torch.nn.functional.one_hot(torch.as_tensor(label), num_classes=self.nb_classes)
         return image, label
@@ -83,17 +82,15 @@ normalize = v2.Compose([
     v2.Resize((IMG_SIZE, IMG_SIZE)),
     v2.ToDtype(torch.float32),
     v2.Normalize(mean=[0], std=[255]),
-    # v2.ToTensor()
-    # v2.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
 ])
 
 training_data = CustomImageDataset(train_dir, augmentations)#, augmentations)
-train_dataloader = DataLoader(training_data, batch_size=16, shuffle=True)
+train_dataloader = DataLoader(training_data, batch_size=32, shuffle=True, num_workers=8, pin_memory=True)
 class_names = training_data.class_names
 nb_classes = len(class_names)
 
 validation_data = CustomImageDataset(val_dir, normalize)
-val_dataloader = DataLoader(validation_data, batch_size=16, shuffle=True)
+val_dataloader = DataLoader(validation_data, batch_size=32, shuffle=True, num_workers=8, pin_memory=True)
 
 # Display image and label:
 # train_features, train_labels = next(iter(train_dataloader))
@@ -254,7 +251,7 @@ def Hierarchicaloss(specie_to_genus, genus_to_family, family_to_order, batch_siz
     # Return a function
     return HIERARCHICAL_loss
 
-hierarchy_loss=[Hierarchicaloss(species_to_genus, genus_to_family, family_to_order, batch_size=16, alpha=0.5)]
+hierarchy_loss=[Hierarchicaloss(species_to_genus, genus_to_family, family_to_order, batch_size=32, alpha=0.5)]
 
 
 #### TRAINING ####
