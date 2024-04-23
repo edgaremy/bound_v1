@@ -16,8 +16,10 @@ import torchvision
 from torchvision.io import read_image
 from torchvision.transforms import v2
 
+import torchmetrics
+
 from pytorch_accelerated.trainer import DEFAULT_CALLBACKS, Trainer
-from pytorch_accelerated.callbacks import SaveBestModelCallback
+from pytorch_accelerated.callbacks import SaveBestModelCallback, TrainerCallback
 
 
 IMG_SIZE = 224 # pour utiliser ResNet
@@ -178,21 +180,23 @@ class TimmTrainer(Trainer):
         if self.scheduler is not None:
             self.scheduler.step_update(num_updates=self.num_updates)
 
+class AccuracyCallback(TrainerCallback):
+    def __init__(self, num_classes):
+        self.accuracy = torchmetrics.Accuracy(task="multiclass", num_classes=num_classes)
+
+    def on_training_run_start(self, trainer, **kwargs):
+        self.accuracy.to(trainer.device)
+
+    def on_eval_step_end(self, trainer, batch, batch_output, **kwargs):
+        preds = batch_output["model_outputs"].argmax(dim=-1)
+        self.accuracy.update(preds, batch[1])
+
+    def on_eval_epoch_end(self, trainer, **kwargs):
+        trainer.run_history.update_metric("accuracy", self.accuracy.compute().item())
+        self.accuracy.reset()
+
+
 data_config = timm.data.resolve_data_config({}, model=model, verbose=True)
-
-# train_dl_kwargs = {
-#     "input_size": data_config["input_size"],
-#     "is_training": True,
-#     "num_workers": 8,
-#     "pin_memory": True,
-# }
-
-# eval_dl_kwargs = {
-#     "input_size": data_config["input_size"],
-#     "is_training": False,
-#     "num_workers": 8,
-#     "pin_memory": True,
-# }
 
 train_dl_kwargs = {
         "input_size": data_config["input_size"],
@@ -249,13 +253,14 @@ trainer = TimmTrainer(
         callbacks=[
             *DEFAULT_CALLBACKS,
             SaveBestModelCallback(watch_metric="accuracy", greater_is_better=True),
+            AccuracyCallback(num_classes=306)
         ]
     )
 
 trainer.train(
     train_dataset=dataset_train,
     eval_dataset=dataset_val,
-    num_epochs=2,
+    num_epochs=num_epochs,
     per_device_batch_size=32,
 
     train_dataloader_kwargs=train_dl_kwargs,
