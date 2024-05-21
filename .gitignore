@@ -18,3 +18,5 @@ __pycache__/
 csv_manipulation/__pycache__/
 calibration_image_sample_data_20x128x128x3_float32.npy
 bees_dataset_scripts/every_species_observations_LIMIT10000.csv
+torch_benchmark/output/
+torch_benchmark/wandb/
