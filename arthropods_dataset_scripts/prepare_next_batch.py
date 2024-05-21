@@ -13,7 +13,7 @@ from yolov8_train import find_last_model_number, train_yolov8
 ## MAIN SCRIPT TO CALL OTHER FUNCTIONS IN THE SAME FOLDER ##
 
 # Current Dataset Number (where the new Annotation JSON-files are):
-DATASET_NUMBER = 7
+DATASET_NUMBER = 9
 
 # Convert JSON to Labels:
 print("\n##### CONVERTING JSON TO LABELS #####\n")
