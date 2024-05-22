@@ -17,24 +17,44 @@ torch.cuda.empty_cache()
 from keras import layers
 from keras import regularizers
 
-IMG_SIZE = 320
-nb_classes = 306
-conv_base = keras.applications.resnet50.ResNet50(
-    include_top=False,
-    weights='imagenet',
-    input_tensor=None,
-    input_shape=(3, IMG_SIZE, IMG_SIZE),
-    pooling=None,
-    classes=nb_classes
-)
+from tqdm import tqdm
 
-inputs = keras.Input(shape=(3, IMG_SIZE, IMG_SIZE))
-x = conv_base(inputs)
-x = layers.GlobalAveragePooling2D()(x)
-outputs = layers.Dense(nb_classes, kernel_regularizer=regularizers.L2(1e-4), activation='softmax')(x)
-model = keras.Model(inputs=inputs, outputs=outputs, name="bee_classifier")
-model.load_weights("/home/eremy/Documents/CODE/bound_v1/bees_dataset_scripts/ResNet.weights.h5")
-model.summary()
+# IMG_SIZE = 320
+# nb_classes = 306
+# conv_base = keras.applications.resnet50.ResNet50(
+#     include_top=False,
+#     weights='imagenet',
+#     input_tensor=None,
+#     input_shape=(3, IMG_SIZE, IMG_SIZE),
+#     pooling=None,
+#     classes=nb_classes
+# )
+
+# inputs = keras.Input(shape=(3, IMG_SIZE, IMG_SIZE))
+# x = conv_base(inputs)
+# x = layers.GlobalAveragePooling2D()(x)
+# outputs = layers.Dense(nb_classes, kernel_regularizer=regularizers.L2(1e-4), activation='softmax')(x)
+# model = keras.Model(inputs=inputs, outputs=outputs, name="bee_classifier")
+# model.load_weights("models/ResNet_categ_320_32.weights.h5")
+# model.summary()
+
+import timm
+import torch.nn as nn
+IMG_SIZE = 224
+nb_classes = 306
+model = timm.create_model("resnet50.a1_in1k", pretrained=True, num_classes=nb_classes)
+# model.load_state_dict(torch.load("./model_best.pth.tar")['model_state_dict'])
+model.load_state_dict(torch.load("./model_best.pth.tar")['state_dict'])
+model = nn.Sequential(model, nn.Softmax(dim=1)) # adding softmax activation at the end of the model
+model.eval()
+from timm.data.dataset import ImageDataset
+from timm.data.loader import create_loader
+
+# load image to evaluate model:
+# from torchvision.io import read_image
+# img_path = "/mnt/disk1/datasets/Projet_Bees_Detection_Basile/data_bees_detection/BD307/BD_307_cropped/dataset/test/Amegilla albigena/Amegilla_albigena_female.jpg"
+# image = read_image(img_path)
+# print(model(image.float().unsqueeze(0)).argmax())
 
 
 import glob
@@ -80,38 +100,52 @@ class CustomImageTestDataset(Dataset):
         return image, label
 
 normalize = v2.Compose([
-    v2.Resize((IMG_SIZE, IMG_SIZE)),
+    v2.Resize((IMG_SIZE, IMG_SIZE), interpolation=v2.InterpolationMode.BICUBIC),
     v2.ToDtype(torch.float32),
-    v2.Normalize(mean=[0], std=[255]),
+    # v2.Normalize(mean=[0], std=[255]),
     # v2.ToTensor()
-    # v2.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+    v2.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
 ])
-
+BATCH_SIZE = 128
 test_dir = "/mnt/disk1/datasets/Projet_Bees_Detection_Basile/data_bees_detection/BD307/BD_307_cropped/dataset/test"
 class_dir = "/mnt/disk1/datasets/Projet_Bees_Detection_Basile/data_bees_detection/BD307/BD_307_cropped/dataset/train"
 test_data = CustomImageTestDataset(test_dir, class_dir, normalize)
-test_dataloader = DataLoader(test_data, batch_size=16, shuffle=False)
+test_dataloader = DataLoader(test_data, batch_size=BATCH_SIZE, shuffle=False, num_workers=8)
 nb_classes = test_data.nb_classes
+
+dataset = ImageDataset("/mnt/disk1/datasets/Projet_Bees_Detection_Basile/data_bees_detection/BD307/BD_307_cropped/dataset/test", class_map="./torch_benchmark/class_to_idx_mapping.txt")#, transform=normalize)
+test_loader = create_loader(dataset, (3, 224, 224), batch_size=BATCH_SIZE, is_training=False, num_workers=8)
 
 labels = []
 prediction = []
+
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+model.to(device)
+
 predictions = np.zeros((len(test_data), nb_classes), dtype=float)
-for i, (image_batch, label_batch) in enumerate(test_dataloader):
+# for i, (image_batch, label_batch) in enumerate(tqdm(test_dataloader)):
+for i, (image_batch, label_batch) in enumerate(test_loader):
     pred = model(image_batch).cpu().detach().numpy()
     y = 0
     for label in label_batch:
-        label_idx = label.argmax()
+        # label_idx = label.argmax() # if label is one hot encoded
+        label_idx = label.cpu() # if label is an index
         labels.append(label_idx)
-        predictions[y+16*i,:] = pred[y,:]
+        predictions[y+BATCH_SIZE*i,:] = pred[y,:]
         y += 1
     pred_idx = pred.argmax(axis=1)
     prediction += pred_idx.tolist()
 labels = np.array([int(label) for label in labels], dtype=int)
+# print(labels)
 prediction = np.array(prediction, dtype=int)
-# print(predictions.shape)
+# print(prediction)
 # print(prediction.shape, len(labels))
 # print(prediction[-10:],labels[-10:])
 print(sum(prediction == labels), "/", len(labels))
+
+def softmax(x):
+    e_x = np.exp(x - np.max(x))
+    return e_x / e_x.sum()
 
 def create_hierarchy_matrices(csv_file):
     hierarchy = pd.read_csv(csv_file)
@@ -170,7 +204,7 @@ def create_hierarchy_matrices(csv_file):
 
     return hierarchy_matrices, specie, genus, family, order, class_
 
-def make_hierarchy_confusion_matrices(model_path, dataset_folder, hierarchy_csv_file):
+def make_hierarchy_confusion_matrices(dataset_folder, hierarchy_csv_file):
 
     hierarchy_matrices, specie, genus, family, order, class_ = create_hierarchy_matrices(hierarchy_csv_file)
     nb_specie = len(specie)
@@ -188,12 +222,6 @@ def make_hierarchy_confusion_matrices(model_path, dataset_folder, hierarchy_csv_
     encountered_species = []
     specie_count = np.zeros(nb_specie)
 
-    # Loading the model
-    # class_folder = os.listdir(dataset_folder)[0]
-    # class_folder = os.path.join(dataset_folder, class_folder)
-    # model = YOLO(model_path)
-    # results = model(os.path.join(dataset_folder, class_folder), verbose=False) # predict on a folder
-
     # Iterate over the subfolders in the dataset folder
     for class_folder in os.listdir(dataset_folder):
 
@@ -207,6 +235,7 @@ def make_hierarchy_confusion_matrices(model_path, dataset_folder, hierarchy_csv_
 
     for pred in range(predictions.shape[0]):
         probabilities = predictions[pred,:]
+        # probabilities = softmax(probabilities) # if no activation function at the end of the model
         specie_idx = labels[pred]
         # species conf_mat
         conf_mat_species[specie_idx, probabilities.argmax()] += 1
@@ -352,10 +381,9 @@ def compute_hierarchy_perfs(hierarchy_conf_mat, encountered_species):
 model_path = None
 dataset_folder = "/mnt/disk1/datasets/Projet_Bees_Detection_Basile/data_bees_detection/BD307/BD_307_cropped/dataset/test"
 hierarchy_csv = "dataset_analysis/306_hierarchy.csv"
-hierarchy_conf_mat, specie, genus, family, order, class_, encountered_species, count = make_hierarchy_confusion_matrices(model_path, dataset_folder, hierarchy_csv)
+hierarchy_conf_mat, specie, genus, family, order, class_, encountered_species, count = make_hierarchy_confusion_matrices(dataset_folder, hierarchy_csv)
 f1_score_species, f1_score_genus, f1_score_family, f1_score_order, f1_score_class = compute_hierarchy_perfs(hierarchy_conf_mat, encountered_species)
 # plot_hierarchy_confusion_matrices(hierarchy_conf_mat, specie, genus, family, order, class_)
-
 
 hierarchy = pd.read_csv(hierarchy_csv)
 
