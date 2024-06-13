@@ -1,6 +1,10 @@
 
 # for reva
-python ../../pytorch-image-models/train.py /mnt/disk1/datasets/Projet_Bees_Detection_Basile/data_bees_detection/BD307/BD_307_cropped/dataset/ --model resnet50.a1_in1k --pretrained --num-classes 306 --class-map ./class_to_idx_mapping.txt --epochs 200 -b 32 -vb 64 -j 8 --log-interval 200 --opt lamb --lr 5e-3 --sched cosine --weight-decay 0.01 --warmup-epochs 5 --smoothing 0.1 --drop-path 0.05 --mixup 0.2 --cutmix 1.0 --hflip 0.5 --aa rand-m7-mstd0.5 --bce-loss
+python ../../pytorch-image-models/train.py /mnt/disk1/datasets/Projet_Bees_Detection_Basile/data_bees_detection/BD307/BD_307_cropped/dataset/ --model resnet50.a1_in1k --pretrained --num-classes 306 --class-map ./class_to_idx_mapping.txt --epochs 200 -b 32 -vb 64 -j 8 --log-interval 200 --opt lamb --lr 5e-3 --sched cosine --weight-decay 0.01 --warmup-epochs 5 --smoothing 0.1 --drop-path 0.05 --mixup 0.2 --cutmix 1.0 --hflip 0.5 --aa rand-m7-mstd0.5 --bce-loss --amp --wandb
 
 # for reva-dl
-python ../pytorch-image-models/train.py ../../datasets/BD_307_cropped/dataset/ --model resnet50.a1_in1k --pretrained --num-classes 306 --class-map ./class_to_idx_mapping.txt --epochs 200 -b 32 -vb 64 -j 8 --log-interval 200 --opt lamb --lr 5e-3 --sched cosine --weight-decay 0.01 --warmup-epochs 5 --smoothing 0.1 --drop-path 0.05 --mixup 0.2 --cutmix 1.0 --hflip 0.5 --aa rand-m7-mstd0.5 --bce-loss
+python ../pytorch-image-models/train.py ../../datasets/BD_307_cropped/dataset/ --model resnet50.a1_in1k --pretrained --num-classes 306 --class-map ./class_to_idx_mapping.txt --epochs 200 -b 32 -vb 64 -j 8 --log-interval 200 --opt lamb --lr 5e-3 --sched cosine --weight-decay 0.01 --warmup-epochs 5 --smoothing 0.1 --drop-path 0.05 --mixup 0.2 --cutmix 1.0 --hflip 0.5 --aa rand-m7-mstd0.5 --bce-loss --amp --wandb
+python ../pytorch-image-models-custom-losses/train.py ../../datasets/BD_307_cropped/dataset/ --model resnet50.a1_in1k --pretrained --num-classes 306 --class-map ./class_to_idx_mapping.txt --epochs 200 -b 32 -vb 64 -j 8 --log-interval 200 --opt lamb --lr 5e-3 --sched cosine --weight-decay 0.01 --warmup-epochs 5 --smoothing 0.1 --drop-path 0.05 --mixup 0.2 --cutmix 1.0 --hflip 0.5 --aa rand-m7-mstd0.5 --hierarchical-loss --amp
+
+# for reva (validation)
+python ../../pytorch-image-models/validate.py --data-dir /mnt/disk1/datasets/Projet_Bees_Detection_Basile/data_bees_detection/BD307/BD_307_cropped/dataset/test --model resnet50.a1_in1k --checkpoint ../model_best.pth.tar --num-classes 306 --class-map ./class_to_idx_mapping.txt -b 256 -j 8
