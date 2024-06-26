@@ -3,21 +3,8 @@ import ultralytics
 import torch
 import os
 
-# Load a model
-# model = YOLO("yolov8n.yaml")  # build a new model from scratch
-# model = YOLO("yolov8n.pt")  # load a pretrained model (recommended for training)
+# Load model
 model = YOLO('runs/detect/train16/weights/best.pt') # load best.pt or last.pt of local model
-
-
-# Use the model
-# model.train(data="/mnt/disk1/datasets/Projet_Bees_Detection_Basile/data_bees_detection/BD_1class/Bees_Detection(1class).yaml", epochs=100)  # train the model
-
-# Evaluate model performance on the validation set
-# metrics = model.val()
-# metrics = model.val(data="/mnt/disk1/datasets/Projet_Bees_Detection_Basile/data_bees_detection/BD307/DG_evaluate_predictions/dataset/DG_Detection.yaml", )
-
-# Make prediction on set of images
-# results = model("/mnt/disk1/datasets/Projet_Bees_Detection_Basile/data_bees_detection/BD307/DG_evaluate_predictions/dataset/images/val", save_txt=False, save=False)
 
 path = "/mnt/disk1/datasets/Projet_Bees_Detection_Basile/data_bees_detection/BD307/DG_evaluate_predictions/dataset/"
 
@@ -73,9 +60,7 @@ for img in os.listdir(os.path.join(path, "images/val")):
                     area2 = (pred_x2 - pred_x1) * (pred_y2 - pred_y1)
                     union = area1 + area2 - intersection
                     IoU = intersection / union
-
-                    # IoU = ultralytics.utils.metrics.box_iou(torch.tensor([x1, y1, x2, y2]), torch.tensor([pred_x1, pred_y1, pred_x2, pred_y2]))
-                    # IoU = ultralytics.utils.metrics.box_iou(torch.tensor([x_center, y_center, width, height]), results[0].boxes.xyxy)
+                    
                     IoUs.append(IoU)
 
                 break

@@ -6,8 +6,7 @@ def get_mean_iou(model):
 
     path = "/mnt/disk1/datasets/iNaturalist/Arthropods/dataset15/"
 
-    # Evaluate mean IoU:
-    IoUs = []
+    IoUs = [] # To evaluate the mean IoU
 
     for img in os.listdir(os.path.join(path, "images/test")):
         img_path = os.path.join(path, "images/test", img)
@@ -48,10 +47,6 @@ def get_mean_iou(model):
                         x2 = int((x_center + width/2) * im_height)
                         y2 = int((y_center + height/2) * im_width)
 
-                        # print(x1, y1, x2, y2)
-                        # print(pred_x1, pred_y1, pred_x2, pred_y2)
-
-
                         # Compute the intersection over union
                         intersection = max(0, min(x2, pred_x2) - max(x1, pred_x1)) * max(0, min(y2, pred_y2) - max(y1, pred_y1))
                         area1 = (x2 - x1) * (y2 - y1)
@@ -59,8 +54,6 @@ def get_mean_iou(model):
                         union = area1 + area2 - intersection
                         IoU = intersection / union
 
-                        # IoU = ultralytics.utils.metrics.box_iou(torch.tensor([x1, y1, x2, y2]), torch.tensor([pred_x1, pred_y1, pred_x2, pred_y2]))
-                        # IoU = ultralytics.utils.metrics.box_iou(torch.tensor([x_center, y_center, width, height]), results[0].boxes.xyxy)
                         IoUs.append(IoU)
 
                     break
@@ -97,7 +90,7 @@ def eval_yolov8(model_path, yaml_path, split='test'):
 
     # Evaluate model performance on the validation set
     metrics = model.val(data=yaml_path, split=split, plots=False)
-    # print(metrics.box.f1) # TODO
+    # print(metrics.box.f1) # TODO collect F1 score from here
     delete_last_val_folder_if_empty()
 
     # Evaluate mean IoU
