@@ -24,8 +24,8 @@ from pytorch_accelerated.callbacks import SaveBestModelCallback, TrainerCallback
 
 IMG_SIZE = 224 # pour utiliser ResNet
 data_path = "/mnt/disk1/datasets/Projet_Bees_Detection_Basile/data_bees_detection/BD307/BD_307_cropped/dataset/"
-train_dir = "/mnt/disk1/datasets/Projet_Bees_Detection_Basile/data_bees_detection/BD307/BD_307_cropped/dataset/train/"
-val_dir = "/mnt/disk1/datasets/Projet_Bees_Detection_Basile/data_bees_detection/BD307/BD_307_cropped/dataset/val/"
+train_dir = data_path + "train/"
+val_dir = data_path + "val/"
 
 class CustomImageDataset(Dataset):
     def __init__(self, class_folders_dir, transform=None, target_transform=None):
