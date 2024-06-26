@@ -10,7 +10,7 @@ from collections import Counter
 # model = YOLO("yolov8n.yaml")  # build a new model from scratch
 # model = YOLO("yolov8n.pt")  # load a pretrained model (recommended for training)
 
-model = YOLO('runs/detect/train16/weights/best.pt') # load best.pt or last.pt of local model
+model = YOLO('runs/detect/train32/weights/best.pt') # load best.pt or last.pt of local model
 
 
 # Use the model
@@ -52,7 +52,8 @@ model = YOLO('runs/detect/train16/weights/best.pt') # load best.pt or last.pt of
 
 
 
-folder_path = "/mnt/disk1/datasets/Projet_Bees_Detection_Basile/data_bees_detection/BD307/DG"
+# folder_path = "/mnt/disk1/datasets/Projet_Bees_Detection_Basile/data_bees_detection/BD307/DG"
+folder_path = "/mnt/disk1/datasets/Entomoscope/"
 
 for folder_name in os.listdir(folder_path):
     subfolder_path = os.path.join(folder_path, folder_name)
@@ -83,10 +84,10 @@ for folder_name in os.listdir(folder_path):
     for i in range(num_chunks):
         start = i * chunk_size
         end = (i + 1) * chunk_size
-        model.predict(file_paths[start:end], show=False, save=True, save_txt=True)
+        model.predict(file_paths[start:end], show=False, save=True, save_txt=False)
 
     remaining_files = len(file_paths) % chunk_size
     if remaining_files > 0:
         start = num_chunks * chunk_size
         end = start + remaining_files
-        model.predict(file_paths[start:end], show=False, save=True, save_txt=True)
+        model.predict(file_paths[start:end], show=False, save=True, save_txt=False)

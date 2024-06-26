@@ -44,7 +44,7 @@ IMG_SIZE = 224
 nb_classes = 306
 model = timm.create_model("resnet50.a1_in1k", pretrained=True, num_classes=nb_classes)
 # model.load_state_dict(torch.load("./model_best.pth.tar")['model_state_dict'])
-model.load_state_dict(torch.load("./model_best.pth.tar")['state_dict'])
+model.load_state_dict(torch.load("torch_benchmark/models/baseline/model_best_RSB_v4.pth.tar")['state_dict'])
 model = nn.Sequential(model, nn.Softmax(dim=1)) # adding softmax activation at the end of the model
 model.eval()
 from timm.data.dataset import ImageDataset
