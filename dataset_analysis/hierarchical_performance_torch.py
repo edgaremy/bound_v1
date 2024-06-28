@@ -58,17 +58,10 @@ from timm.data.loader import create_loader
 
 
 import glob
-# import cv2
-
-
-import os
-import pandas as pd
-import matplotlib.pyplot as plt
 from torchvision.io import read_image
 from torchvision.transforms import v2
 from torch.utils.data import DataLoader
 from torch.utils.data import Dataset
-import numpy as np
 
 class CustomImageTestDataset(Dataset):
     def __init__(self, test_dir, class_folders_dir, transform=None, target_transform=None):
