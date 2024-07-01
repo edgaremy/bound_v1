@@ -292,7 +292,8 @@ def compute_hierarchy_perfs(model_path):
 
 import csv
 
-folder_list = ["torch_benchmark/models/baseline", "torch_benchmark/models/hierarchical_loss"]
+# folder_list = ["torch_benchmark/models/baseline", "torch_benchmark/models/hierarchical_loss"]
+folder_list = ["torch_benchmark/models/new"]
 export_csv = "torch_benchmark/results.csv"
 
 # list models contained in folder_list
