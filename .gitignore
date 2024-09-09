@@ -24,3 +24,4 @@ torch_benchmark/models/
 export.html
 *.pt
 models/
+datasets/

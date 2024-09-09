@@ -44,7 +44,7 @@ IMG_SIZE = 224
 nb_classes = 306
 model = timm.create_model("resnet50.a1_in1k", pretrained=True, num_classes=nb_classes)
 # model.load_state_dict(torch.load("./model_best.pth.tar")['model_state_dict'])
-model.load_state_dict(torch.load("torch_benchmark/models/baseline/model_best_RSB_v4.pth.tar")['state_dict'])
+model.load_state_dict(torch.load("torch_benchmark/models/baseline/model_best_RSB_v1.pth.tar")['state_dict'])
 model = nn.Sequential(model, nn.Softmax(dim=1)) # adding softmax activation at the end of the model
 model.eval()
 from timm.data.dataset import ImageDataset
@@ -368,7 +368,11 @@ def compute_hierarchy_perfs(hierarchy_conf_mat, encountered_species):
 
     return f1_score_species, f1_score_genus, f1_score_family, f1_score_order, f1_score_class
 
-
+def export_perfs_csv(names, f1_scores):
+    # Export F1 Score per class to a csv file
+    data = { 'Class': names, 'F1 Score': f1_scores }
+    df = pd.DataFrame(data)
+    df.to_csv('f1_score_per_class.csv', index=False)
 
 # Example usage:
 model_path = None
@@ -435,3 +439,7 @@ fig.update_traces(hovertemplate=
 fig.show()
 fig.write_html("./export.html")
 # fig.write_image("hierarchie_especes.svg")
+
+EXPORT_CSV = False
+if EXPORT_CSV:
+    export_perfs_csv(data['Name'], data['F1-score'])

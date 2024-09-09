@@ -1,0 +1,363 @@
+Class,F1 Score
+Insecta,1.0
+Hymenoptera,1.0
+Andrenidae,0.9292307692307692
+Apidae,0.9426751592356688
+Colletidae,0.7857142857142857
+Halictidae,0.9473684210526315
+Megachilidae,0.9485714285714286
+Melittidae,0.8846153846153846
+Aglaoapis,0.0
+Amegilla,1.0
+Andrena,0.9230769230769231
+Anthidiellum,0.8571428571428571
+Anthidium,0.88
+Anthophora,0.9142857142857143
+Apis,0.5
+Bombus,1.0
+Ceratina,0.9166666666666666
+Ceylalictus,1.0
+Chelostoma,1.0
+Coelioxys,1.0
+Colletes,0.7692307692307693
+Dasypoda,0.625
+Epeoloides,1.0
+Epeolus,1.0
+Eucera,0.76
+Habropoda,1.0
+Halictus,0.9
+Heriades,1.0
+Hoplitis,0.8
+Hylaeus,0.5
+Icteranthidium,0.0
+Lasioglossum,0.9454545454545454
+Lithurgus,1.0
+Macropis,1.0
+Megachile,0.9166666666666666
+Melecta,0.8888888888888888
+Melitta,0.8888888888888888
+Melitturga,0.0
+Nomada,0.6470588235294118
+Nomioides,0.0
+Osmia,1.0
+Panurgus,1.0
+Pasites,1.0
+Pseudoanthidium,0.0
+Rhodanthidium,1.0
+Rophites,0.0
+Seladonia,0.8888888888888888
+Sphecodes,0.8
+Stelis,1.0
+Systropha,1.0
+Tetralonia,0.5
+Tetraloniella,0.9655172413793104
+Thyreus,0.8
+Trachusa,1.0
+Triepeolus,0.0
+Xylocopa,0.9090909090909091
+Aglaoapis tridentata,0.0
+Amegilla albigena,1.0
+Amegilla garrula,1.0
+Amegilla quadrifasciata,1.0
+Andrena agilissima,1.0
+Andrena albopunctata,1.0
+Andrena apicata,0.5
+Andrena barbilabris,0.5
+Andrena bicolor,1.0
+Andrena bicolorata,0.5
+Andrena bimaculata,0.5714285714285714
+Andrena carantonica,0.0
+Andrena chrysosceles,1.0
+Andrena cineraria,1.0
+Andrena clarkella,0.0
+Andrena colletiformis,0.8571428571428571
+Andrena denticulata,0.0
+Andrena dorsata,0.7142857142857143
+Andrena flavipes,0.8571428571428571
+Andrena florea,1.0
+Andrena fulva,1.0
+Andrena fuscipes,0.6666666666666666
+Andrena fuscosa,0.0
+Andrena gravida,1.0
+Andrena haemorrhoa,1.0
+Andrena hattorfiana,0.9230769230769231
+Andrena helvola,0.0
+Andrena humilis,0.8571428571428571
+Andrena labialis,0.6666666666666666
+Andrena labiata,1.0
+Andrena lagopus,1.0
+Andrena leucolippa,0.6666666666666666
+Andrena limbata,0.0
+Andrena marginata,1.0
+Andrena minutula,0.8
+Andrena morio,1.0
+Andrena nigriceps,0.0
+Andrena nigroaenea,0.8571428571428571
+Andrena nitida,1.0
+Andrena nycthemera,0.0
+Andrena ovatula,0.0
+Andrena pandellei,0.8571428571428571
+Andrena pilipes,0.6666666666666666
+Andrena praecox,0.3333333333333333
+Andrena propinqua,0.4444444444444444
+Andrena proxima,0.0
+Andrena ranunculi,1.0
+Andrena rosae,0.8
+Andrena symphyti,1.0
+Andrena thoracica,1.0
+Andrena tibialis,0.0
+Andrena trimmerana,0.0
+Andrena vaga,0.8
+Andrena variabilis,0.8888888888888888
+Andrena ventralis,0.4
+Andrena viridescens,0.0
+Andrena wilkella,0.5714285714285714
+Anthidiellum strigatum,0.8571428571428571
+Anthidium florentinum,0.8
+Anthidium loti,0.0
+Anthidium manicatum,1.0
+Anthidium oblongatum,1.0
+Anthidium punctatum,0.0
+Anthidium septemspinosum,1.0
+Anthophora aestivalis,0.75
+Anthophora bimaculata,1.0
+Anthophora crinipes,0.0
+Anthophora dispar,0.0
+Anthophora fulvodimidiata,0.0
+Anthophora furcata,1.0
+Anthophora plumipes,0.8888888888888888
+Anthophora quadrimaculata,1.0
+Anthophora retusa,0.5
+Apis mellifera,0.2
+Bombus alpinus,0.0
+Bombus argillaceus,0.0
+Bombus barbutellus,1.0
+Bombus bohemicus,0.0
+Bombus campestris,1.0
+Bombus confusus,0.0
+Bombus cryptarum,1.0
+Bombus cullumanus,0.0
+Bombus distinguendus,0.6666666666666666
+Bombus flavidus,0.0
+Bombus hortorum,1.0
+Bombus humilis,0.9090909090909091
+Bombus hypnorum,1.0
+Bombus jonellus,1.0
+Bombus lapidarius,0.75
+Bombus lucorum,0.6666666666666666
+Bombus mesomelas,0.8
+Bombus monticola,1.0
+Bombus mucidus,0.0
+Bombus muscorum,1.0
+Bombus pascuorum,0.75
+Bombus pomorum,0.8
+Bombus pratorum,0.8333333333333334
+Bombus pyrenaeus,0.0
+Bombus ruderarius,0.0
+Bombus ruderatus,1.0
+Bombus rupestris,0.6153846153846154
+Bombus sichelii,0.0
+Bombus soroeensis,0.5454545454545454
+Bombus soroeensis proteus,0.0
+Bombus subterraneus,0.8
+Bombus sylvarum,0.8333333333333334
+Bombus sylvestris,0.4
+Bombus terrestris,0.46153846153846156
+Bombus terrestris dalmatinus,0.0
+Bombus terrestris lusitanicus,0.0
+Bombus vestalis,1.0
+Bombus veteranus,1.0
+Bombus wurflenii,0.0
+Bombus xanthopus,0.6666666666666666
+Ceratina chalcites,0.7272727272727273
+Ceratina chalybea,0.0
+Ceratina cucurbitina,1.0
+Ceratina cyanea,1.0
+Ceylalictus variegatus,1.0
+Chelostoma campanularum,1.0
+Chelostoma florisomne,0.6666666666666666
+Chelostoma rapunculi,0.0
+Coelioxys afra,0.0
+Coelioxys alatus,0.0
+Coelioxys conoidea,1.0
+Coelioxys conoideus,0.0
+Coelioxys inermis,1.0
+Colletes cunicularius,0.18181818181818182
+Colletes daviesanus,0.0
+Colletes halophilus,0.0
+Colletes hederae,0.8888888888888888
+Colletes hylaeiformis,0.0
+Colletes similis,0.6666666666666666
+Colletes succinctus,0.8
+Dasypoda argentata,0.6666666666666666
+Dasypoda hirtipes,0.6
+Dasypoda visnaga,0.0
+Epeoloides coecutiens,1.0
+Epeolus cruciger,0.0
+Epeolus fallax,1.0
+Epeolus julliani,0.0
+Epeolus variegatus,0.0
+Eucera hispana,0.0
+Eucera longicornis,0.4
+Eucera nigrescens,0.6666666666666666
+Eucera nigrifacies,0.5517241379310345
+Eucera nigrilabris,0.4
+Eucera taurica,0.5
+Habropoda tarsata,1.0
+Halictus fulvipes,0.0
+Halictus langobardicus,0.0
+Halictus maculatus,1.0
+Halictus quadricinctus,0.8571428571428571
+Halictus rubicundus,0.0
+Halictus scabiosae,0.75
+Halictus sexcinctus,0.0
+Halictus simplex,0.0
+Heriades crenulata,0.0
+Heriades truncorum,1.0
+Hoplitis adunca,1.0
+Hoplitis cristatula,0.6666666666666666
+Hoplitis leucomelana,0.0
+Hoplitis mocsaryi,0.0
+Hoplitis perezi,1.0
+Hoplitis tridentata,0.0
+Hylaeus annulatus,0.0
+Hylaeus clypearis,0.0
+Hylaeus communis,0.0
+Hylaeus confusus,0.0
+Hylaeus cornutus,0.0
+Hylaeus hyalinatus,0.0
+Hylaeus leptocephalus,0.0
+Hylaeus nigritus,0.0
+Hylaeus pictipes,0.0
+Hylaeus pictus,0.0
+Hylaeus punctatus,0.0
+Hylaeus punctulatissimus,1.0
+Hylaeus signatus,0.0
+Hylaeus sulphuripes,0.0
+Hylaeus variegatus,0.0
+Icteranthidium grohmanni,0.0
+Icteranthidium laterale,0.0
+Lasioglossum albipes,0.0
+Lasioglossum calceatum,0.0
+Lasioglossum clypeare,0.0
+Lasioglossum costulatum,1.0
+Lasioglossum discum,1.0
+Lasioglossum glabriusculum,0.0
+Lasioglossum interruptum,0.5
+Lasioglossum laevigatum,0.0
+Lasioglossum laticeps,0.0
+Lasioglossum leucozonium,0.5
+Lasioglossum malachurum,0.4
+Lasioglossum marginatum,0.3333333333333333
+Lasioglossum morio,0.0
+Lasioglossum nigripes,0.6666666666666666
+Lasioglossum pallens,0.8
+Lasioglossum pauxillum,0.0
+Lasioglossum politum,0.0
+Lasioglossum prasinum,0.0
+Lasioglossum punctatissimum,0.0
+Lasioglossum pygmaeum,0.0
+Lasioglossum sexnotatum,1.0
+Lasioglossum villosulum,1.0
+Lasioglossum xanthopus,1.0
+Lasioglossum zonulum,0.0
+Lithurgus chrysurus,0.5
+Lithurgus cornutus,0.3333333333333333
+Macropis europaea,1.0
+Macropis fulvipes,1.0
+Megachile albisecta,0.0
+Megachile apicalis,0.8
+Megachile centuncularis,0.6666666666666666
+Megachile circumcincta,0.0
+Megachile ericetorum,0.6666666666666666
+Megachile lagopoda,1.0
+Megachile leachella,0.0
+Megachile ligniseca,0.0
+Megachile maritima,0.5714285714285714
+Megachile melanopyga,0.8
+Megachile nigriventris,1.0
+Megachile octosignata,0.0
+Megachile parietina,1.0
+Megachile pilidens,0.0
+Megachile pyrenaica,0.8
+Megachile rotundata,0.0
+Megachile sculpturalis,0.0
+Megachile sicula,0.0
+Megachile willughbiella,0.0
+Melecta albifrons,0.6666666666666666
+Melecta luctuosa,0.6666666666666666
+Melitta haemorrhoidalis,0.6666666666666666
+Melitta leporina,1.0
+Melitta nigricans,1.0
+Melitta tricincta,1.0
+Melitturga clavicornis,0.0
+Nomada agrestis,0.0
+Nomada baccata,0.15384615384615385
+Nomada basalis,0.6666666666666666
+Nomada bifasciata,0.0
+Nomada distinguenda,0.0
+Nomada fabriciana,1.0
+Nomada ferruginata,0.0
+Nomada flava,0.0
+Nomada flavoguttata,0.0
+Nomada flavopicta,0.0
+Nomada fucata,0.0
+Nomada fulvicornis,0.0
+Nomada goodeniana,0.0
+Nomada lathburiana,0.6666666666666666
+Nomada leucophthalma,0.0
+Nomada marshamella,0.0
+Nomada nobilis,0.0
+Nomada rufipes,0.0
+Nomada sexfasciata,0.0
+Nomada succincta,0.0
+Nomada zonata,0.0
+Nomioides facilis,0.0
+Nomioides minutissimus,0.0
+Osmia andrenoides,1.0
+Osmia aurulenta,1.0
+Osmia bicolor,0.0
+Osmia bicornis,0.8888888888888888
+Osmia caerulescens,1.0
+Osmia cornuta,1.0
+Osmia latreillei,0.0
+Osmia leaiana,0.0
+Osmia niveata,0.0
+Osmia rufohirta,1.0
+Osmia spinulosa,1.0
+Osmia submicans,0.0
+Osmia tricornis,0.0
+Panurgus banksianus,0.5
+Panurgus calcaratus,0.0
+Panurgus dentipes,0.0
+Pasites maculatus,1.0
+Pseudoanthidium nanum,0.0
+Rhodanthidium infuscatum,0.0
+Rhodanthidium septemdentatum,1.0
+Rhodanthidium siculum,0.0
+Rhodanthidium sticticum,0.0
+Rophites quinquespinosus,0.0
+Seladonia subaurata,0.8888888888888888
+Sphecodes albilabris,0.8
+Stelis annulata,1.0
+Stelis breviuscula,0.0
+Stelis ornatula,0.0
+Stelis punctulatissima,0.0
+Stelis signata,0.0
+Systropha curvicornis,1.0
+Tetralonia malvae,0.4
+Tetraloniella alticincta,1.0
+Tetraloniella dentata,0.8888888888888888
+Tetraloniella salicariae,1.0
+Tetraloniella strigata,1.0
+Thyreus histrionicus,0.0
+Thyreus orbatus,0.0
+Thyreus ramosus,0.0
+Trachusa byssina,0.6666666666666666
+Trachusa integra,0.0
+Trachusa interrupta,0.6666666666666666
+Triepeolus tristis,0.0
+Xylocopa cantabrita,0.0
+Xylocopa iris,1.0
+Xylocopa valga,0.5
+Xylocopa violacea,0.9230769230769231
