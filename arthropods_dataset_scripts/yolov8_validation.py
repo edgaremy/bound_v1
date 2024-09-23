@@ -4,7 +4,7 @@ import os
 
 def get_mean_iou(model):
 
-    path = "/mnt/disk1/datasets/iNaturalist/Arthropods/dataset15/"
+    path = "/mnt/disk1/datasets/iNaturalist/Arthropods/dataset17/" #TODO use argument instead
 
     IoUs = [] # To evaluate the mean IoU
 
@@ -90,13 +90,15 @@ def eval_yolov8(model_path, yaml_path, split='test'):
 
     # Evaluate model performance on the validation set
     metrics = model.val(data=yaml_path, split=split, plots=False)
-    # print(metrics.box.f1) # TODO collect F1 score from here
     delete_last_val_folder_if_empty()
 
     # Evaluate mean IoU
     mean_iou = get_mean_iou(model)
 
-    return metrics.results_dict, mean_iou
+    # Evaluate F1-score
+    f1_score = metrics.box.f1[0]
+
+    return metrics.results_dict, mean_iou, f1_score
 
 def save_metrics(model_paths, yaml_path, export_csv_path, split='test'):
 
@@ -104,17 +106,17 @@ def save_metrics(model_paths, yaml_path, export_csv_path, split='test'):
     # Write the metrics to a csv file
     with open(export_csv_path, mode='w') as file:
         writer = csv.writer(file)
-        writer.writerow(["model_path", "wave", "metrics/precision(B)", "metrics/recall(B)", "metrics/mAP50(B)", "metrics/mAP50-95(B)", "fitness", "mean_IoU"])
+        writer.writerow(["model_path", "wave", "metrics/precision(B)", "metrics/recall(B)", "metrics/mAP50(B)", "metrics/mAP50-95(B)", "fitness", "mean_IoU", "F1-score"])
         for model_path in model_paths:
             complete_model_path = "runs/detect/" + model_path + "/weights/best.pt"
 
-            metrics, mean_iou = eval_yolov8(complete_model_path, yaml_path, split)
+            metrics, mean_iou, f1_score = eval_yolov8(complete_model_path, yaml_path, split)
 
-            writer.writerow([model_path, wave_number, metrics["metrics/precision(B)"], metrics["metrics/recall(B)"], metrics["metrics/mAP50(B)"], metrics["metrics/mAP50-95(B)"], metrics["fitness"], mean_iou])
+            writer.writerow([model_path, wave_number, metrics["metrics/precision(B)"], metrics["metrics/recall(B)"], metrics["metrics/mAP50(B)"], metrics["metrics/mAP50-95(B)"], metrics["fitness"], mean_iou, f1_score])
             wave_number += 1
 
 
-model_paths = ["train18", "train22", "train23", "train24", "train25", "train26", "train28", "train29", "train31", "train32", "train33", "train34", "train35", "train36"]
-yaml_path = "/mnt/disk1/datasets/iNaturalist/Arthropods/dataset15/Arthropods15.yaml"
+model_paths = ["train18", "train22", "train23", "train24", "train25", "train26", "train28", "train29", "train31", "train32", "train33", "train34", "train35", "train36", "train37", "train38"]
+yaml_path = "/mnt/disk1/datasets/iNaturalist/Arthropods/dataset17/Arthropods17.yaml"
 export_csv_path = "arthropods_dataset_scripts/test_metrics.csv"
 save_metrics(model_paths, yaml_path, export_csv_path, split='test')
