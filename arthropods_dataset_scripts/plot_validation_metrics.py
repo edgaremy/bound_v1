@@ -16,12 +16,10 @@ def plot_metrics(csv_file, smoothing_degree=4):
     wave_numbers = df['wave'].tolist()
     precision_values = df['metrics/precision(B)'].tolist()
     recall_values = df['metrics/recall(B)'].tolist()
-    mAP50_values = df['metrics/mAP50(B)'].tolist()
-    mAP5_values = df['metrics/mAP50-95(B)'].tolist()
+    # mAP50_values = df['metrics/mAP50(B)'].tolist()
+    # mAP5_values = df['metrics/mAP50-95(B)'].tolist()
     # fitness_values = df['fitness'].tolist()
     mean_IoU_values = df['mean_IoU'].tolist()
-    # f1_score_values = df['metrics/F1-score(B)'].tolist()
-    # val_f1_score_values = [0.72, 0.78, 0.78, 0.82, 0.81, 0.81, 0.83, 0.75, 0.77, 0.78, 0.79, 0.80, 0.81, 0.81, 0.82, 0.81]
     test_f1_score_values = df['F1-score'].tolist()
 
     # Create a 2 by 3 subplot grid
@@ -30,6 +28,8 @@ def plot_metrics(csv_file, smoothing_degree=4):
     fig.set_figheight(10)
     ymin = 0.7
     ymax = 1.0
+    xmin = min(df['wave'].tolist())
+    xmax = max(df['wave'].tolist())
  
     # Plot precision
     axs[0, 0].plot(wave_numbers, precision_values, label='Original')
@@ -40,6 +40,7 @@ def plot_metrics(csv_file, smoothing_degree=4):
     axs[0, 0].set_title('Precision Evolution')
     axs[0, 0].legend()
     axs[0, 0].set_ylim(ymin, ymax)
+    axs[0, 0].set_xlim(xmin, xmax)
 
     # Plot recall
     axs[0, 1].plot(wave_numbers, recall_values, label='Original')
@@ -50,24 +51,7 @@ def plot_metrics(csv_file, smoothing_degree=4):
     axs[0, 1].set_title('Recall Evolution')
     axs[0, 1].legend()
     axs[0, 1].set_ylim(ymin, ymax)
-
-    # # Plot mAP50
-    # axs[1, 0].plot(wave_numbers, mAP50_values, label='Original')
-    # axs[1, 0].plot(wave_numbers, smooth_curve(wave_numbers, mAP50_values, smoothing_degree),
-    #                label=f'Smoothed (deg={smoothing_degree})')
-    # axs[1, 0].set_xlabel('Wave Number')
-    # axs[1, 0].set_ylabel('mAP50')
-    # axs[1, 0].set_title('mAP50 Evolution')
-    # axs[1, 0].legend()
-
-    # # Plot mAP50-95
-    # axs[1, 1].plot(wave_numbers, mAP5_values, label='Original')
-    # axs[1, 1].plot(wave_numbers, smooth_curve(wave_numbers, mAP5_values, smoothing_degree),
-    #                label=f'Smoothed (deg={smoothing_degree})')
-    # axs[1, 1].set_xlabel('Wave Number')
-    # axs[1, 1].set_ylabel('mAP50-95')
-    # axs[1, 1].set_title('mAP50-95 Evolution')
-    # axs[1, 1].legend()
+    axs[0, 1].set_xlim(xmin, xmax)
 
     # Plot Mean IoU
     axs[1, 0].plot(wave_numbers, mean_IoU_values, label='Original')
@@ -78,6 +62,7 @@ def plot_metrics(csv_file, smoothing_degree=4):
     axs[1, 0].set_title('Mean IoU Evolution')
     axs[1, 0].legend()
     axs[1, 0].set_ylim(ymin, ymax)
+    axs[1, 0].set_xlim(xmin, xmax)
 
     # Plot F1-score (test)
     axs[1, 1].plot(wave_numbers, test_f1_score_values, label='Original')
@@ -88,6 +73,7 @@ def plot_metrics(csv_file, smoothing_degree=4):
     axs[1, 1].set_title('F1-score(test) Evolution')
     axs[1, 1].legend()
     axs[1, 1].set_ylim(ymin, ymax)
+    axs[1, 1].set_xlim(xmin, xmax)
 
     # Adjust the layout and spacing
     plt.tight_layout()

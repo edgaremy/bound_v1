@@ -89,7 +89,7 @@ def eval_yolov8(model_path, yaml_path, split='test'):
     model = YOLO(model_path) # load best.pt or last.pt of local model
 
     # Evaluate model performance on the validation set
-    metrics = model.val(data=yaml_path, split=split, plots=False)
+    metrics = model.val(data=yaml_path, split=split, plots=False) # maybe add workers=0
     delete_last_val_folder_if_empty()
 
     # Evaluate mean IoU
@@ -102,7 +102,13 @@ def eval_yolov8(model_path, yaml_path, split='test'):
 
 def save_metrics(model_paths, yaml_path, export_csv_path, split='test'):
 
-    wave_number = 1
+    # delete cache files just in case:
+    cache_dir = os.path.join(os.path.dirname(yaml_path), "labels", split + ".cache")
+    if os.path.isfile(cache_dir):
+        os.remove(cache_dir)
+        # print("\nRemoved cache file: ", cache_dir, "\n\n")
+
+    wave_number = 0
     # Write the metrics to a csv file
     with open(export_csv_path, mode='w') as file:
         writer = csv.writer(file)
@@ -116,7 +122,7 @@ def save_metrics(model_paths, yaml_path, export_csv_path, split='test'):
             wave_number += 1
 
 
-model_paths = ["train18", "train22", "train23", "train24", "train25", "train26", "train28", "train29", "train31", "train32", "train33", "train34", "train35", "train36", "train37", "train38"]
+model_paths = ["train16", "train18", "train22", "train23", "train24", "train25", "train26", "train28", "train29", "train31", "train32", "train33", "train34", "train35", "train36", "train37", "train38"]
 yaml_path = "/mnt/disk1/datasets/iNaturalist/Arthropods/dataset17/Arthropods17.yaml"
-export_csv_path = "arthropods_dataset_scripts/test_metrics.csv"
+export_csv_path = "arthropods_dataset_scripts/test_metrics_tmp.csv"
 save_metrics(model_paths, yaml_path, export_csv_path, split='test')
