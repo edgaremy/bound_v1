@@ -25,3 +25,4 @@ export.html
 *.pt
 models/
 datasets/
+screenshots/
