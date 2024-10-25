@@ -1,6 +1,8 @@
 from ultralytics import YOLO
 import csv
 import os
+import numpy as np
+from scipy.optimize import linear_sum_assignment
 
 def get_mean_iou(model):
 
@@ -17,21 +19,29 @@ def get_mean_iou(model):
         if os.path.exists(ground_truth_label):
             with open(ground_truth_label, 'r') as file:
                 lines = file.readlines()
-
                 boxes = results[0].boxes.xyxy.cpu().numpy()
-                for line in lines:
 
-                    if len(boxes) > 0:
+                combinations = np.zeros((len(boxes), len(lines)))
+
+                if len(lines) == 0: # If there are no ground truth boxes, no IoU is measured
+                    break
+                if len(boxes) == 0 and len(lines) > 0: # If there are no predicted boxes, the IoU is 0
+                    IoUs.append(0)
+                    break
+
+                for j in range(len(lines)):
+                    for i in range(len(boxes)):
+
                         # Get the coordinates of the predicted bounding box
-                        pred_x1 = int(boxes[0][0])
-                        pred_y1 = int(boxes[0][1])
-                        pred_x2 = int(boxes[0][2])
-                        pred_y2 = int(boxes[0][3])
+                        pred_x1 = int(boxes[i][0])
+                        pred_y1 = int(boxes[i][1])
+                        pred_x2 = int(boxes[i][2])
+                        pred_y2 = int(boxes[i][3])
 
                         # Get original img size
                         im_width, im_height = results[0].boxes.orig_shape[0], results[0].boxes.orig_shape[1]
 
-                        line = line.split(' ')
+                        line = lines[j].split(' ')
                         label = int(line[0])
                         x_center = float(line[1])
                         y_center = float(line[2])
@@ -54,9 +64,12 @@ def get_mean_iou(model):
                         union = area1 + area2 - intersection
                         IoU = intersection / union
 
-                        IoUs.append(IoU)
+                        combinations[i, j] = IoU
 
-                    break
+                
+                row_ind, col_ind = linear_sum_assignment(-combinations)
+                IoU = combinations[row_ind, col_ind].sum() / len(lines)
+                IoUs.append(IoU)
 
     mean_iou = sum(IoUs) / len(IoUs)
     print("Mean IoU: ", mean_iou)
