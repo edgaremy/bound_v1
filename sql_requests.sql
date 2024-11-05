@@ -83,3 +83,12 @@ SELECT taxon_id, photo_id, extension, photos.observation_uuid
 FROM observations
 INNER JOIN photos on photos.observation_uuid = observations.observation_uuid where taxon_id=232394;
 .output stdout
+
+
+-- Get all species that have observations in South America:
+SELECT DISTINCT o1.taxon_id, t1.name, t1.ancestry
+FROM observations o1
+JOIN taxa t1 on t1.taxon_id = o1.taxon_id
+AND -55 < o1.latitude AND o1.latitude < 15
+AND -85 < o1.longitude AND o1.longitude < -30
+AND t1.rank = 'species';
