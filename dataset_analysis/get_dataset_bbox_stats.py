@@ -27,7 +27,7 @@ def get_bbox_stats(dataset_folder):
 
     print(f"\nDataset: {dataset_folder}")
     print(f"{total_bboxes} bounding boxes for {total_images} images")
-    print(f"Mean bounding box size: {mean_bbox_size:.2f}%")
+    print(f"Mean bounding box size: {mean_bbox_size*100:.2f}%")
     print(f"Mean bounding box number per image: {mean_bboxes_per_image:.2f}")
 
     return mean_bbox_size, mean_bboxes_per_image
