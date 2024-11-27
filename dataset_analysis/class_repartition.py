@@ -122,6 +122,8 @@ def plot_class_hierarchy_repartition_from_csv(dataset_folders, hierarchy_csv):
                 # Get the hierarchy of the class folder
                 if class_folder not in class_hierarchies:
                     class_hierarchies[class_folder] = hierarchy_df[hierarchy_df['specie'] == class_folder].values[0].tolist()
+                    row = hierarchy_df[hierarchy_df['specie'] == class_folder].iloc[0]
+                    class_hierarchies[class_folder] = [row['class'], row['order'], row['family'], row['genus'], row['specie']]
                     class_hierarchies[class_folder].append(class_counts[class_folder])
                 else:
                     class_hierarchies[class_folder][5] = class_counts[class_folder]
