@@ -1,7 +1,12 @@
 import os
 import glob
+import cv2
 from tqdm import tqdm
 
+
+def get_image_size(image_file):
+    image = cv2.imread(image_file)
+    return image.shape[0], image.shape[1]
 
 def get_bbox_stats(dataset_folder):
     labels_folder = os.path.join(dataset_folder, 'labels')
@@ -13,6 +18,16 @@ def get_bbox_stats(dataset_folder):
     total_images = len(label_files)
 
     for label_file in tqdm(label_files):
+
+        # find corresponding image file
+        image_file = None
+        for ext in ['jpg', 'JPG', 'jpeg', 'png']:
+            potential_image_file = label_file.replace('labels', 'images').replace('txt', ext)
+            if os.path.exists(potential_image_file):
+                image_file = potential_image_file
+            break
+        if image_file is None:
+            print(f"Warning: No corresponding image found for {label_file}")
 
         with open(label_file, 'r') as f:
             bboxes = f.readlines()
