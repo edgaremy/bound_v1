@@ -66,14 +66,15 @@ def plot_repartition(input_file, column, score_column):
     plt.title(score_column)
     plt.xlabel(column)
     plt.ylabel('Score')
+    plt.ylim(None, None)
     
     # Show the plot
     plt.show()
 
 # Example usages
 # input_file = 'torch_benchmark/results.csv'
-input_file = 'torch_benchmark/results_main_scenarios.csv'
-output_file = 'torch_benchmark/results_mean.csv'
+input_file = 'torch_benchmark/results_main_scenar_tmp.csv'
+output_file = 'torch_benchmark/results_mean_tmp.csv'
 group_column = 'model'
 
 compute_mean_perfs(input_file, output_file, group_column)

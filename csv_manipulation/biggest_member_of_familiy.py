@@ -26,7 +26,10 @@ def find_biggest_value(csv_file, unique_column, value_column):
     return result
 
 # Example usage
-csv_file = 'requested_CSVs/french_arthro_observations.csv'
+# csv_file = 'requested_CSVs/french_arthro_observations.csv'
+# csv_output = 'biggest_french_member_by_obs.csv'
+csv_file = 'requested_CSVs/south_american_arthro/south_american_arthro_observations_count.csv'
+csv_output = 'requested_CSVs/south_american_arthro/biggest_member_by_obs.csv'
 unique_column = 'family'
 value_column = 'count'
 
@@ -35,4 +38,4 @@ result_set = find_biggest_value(csv_file, unique_column, value_column)
 result_df = pd.DataFrame(result_set, columns=['name', 'taxon_id', 'family', 'count'])
 
 # Save the DataFrame as a CSV file
-result_df.to_csv('biggest_french_member_by_obs.csv', index=False, float_format='%.0f')
+result_df.to_csv(csv_output, index=False, float_format='%.0f')

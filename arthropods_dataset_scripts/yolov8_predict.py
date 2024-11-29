@@ -63,6 +63,11 @@ def predict_images_with_yolov8(model_path, image_folder, output_folder=None):
 # predict_images_with_yolov8(model_path, folder_path)
         
 # Example Usage:
-model_path = "runs/detect/train16/weights/best.pt" # load best.pt or last.pt of local model
-folder_path = ""
+# model_path = "runs/detect/train16/weights/best.pt" # load best.pt or last.pt of local model
+# folder_path = ""
+# predict_images_with_yolov8(model_path, folder_path)
+
+# Example Usage:
+model_path = "runs/detect/train40/weights/best.pt" # load best.pt or last.pt of local model
+folder_path = "/mnt/disk1/datasets/iNaturalist/Arthropods/generalization/2nd_biggest_french_arthro/LIMIT1/Pictures"
 predict_images_with_yolov8(model_path, folder_path)

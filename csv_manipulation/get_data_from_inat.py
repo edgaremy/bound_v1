@@ -5,9 +5,15 @@ from tqdm import tqdm
 import asyncio
 import sqlite3
 
-csv_number ='6'
-dest_file = "/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT" + csv_number + "/"
-src_csv = "requested_CSVs/photos_to_scrap_NUMBER" + csv_number + ".csv"
+# csv_number ='6'
+# dest_file = "/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT" + csv_number + "/"
+# src_csv = "requested_CSVs/photos_to_scrap_NUMBER" + csv_number + ".csv"
+# src_csv = "requested_CSVs/south_american_arthro/photos_to_scrap_LIMIT1.csv"
+# dest_file = "/mnt/disk1/datasets/iNaturalist/Arthropods/generalization/south_american_arthro/LIMIT1/"
+# src_csv = "requested_CSVs/2nd_french_arthro/photos_to_scrap_next_genus_LIMIT1.csv"
+# dest_file = "/mnt/disk1/datasets/iNaturalist/Arthropods/generalization/2nd_french_arthro/next_genus/"
+src_csv = "requested_CSVs/2nd_french_arthro/photos_to_scrap_same_genus_LIMIT1.csv"
+dest_file = "/mnt/disk1/datasets/iNaturalist/Arthropods/generalization/2nd_french_arthro/same_genus/"
 separate_classes_in_folders = False
 img_size = "original" # "small" (240px)/ "medium" (500px)/ "large" (1024px)/ "original" (2024px)
 

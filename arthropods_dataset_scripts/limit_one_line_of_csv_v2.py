@@ -68,9 +68,15 @@ def keep_each_element_number_n_with_different_observation(input_file, input_file
 
 
 # Usage example
-# number_to_keep = 8
+# number_to_keep = 1
 # input_file = 'requested_CSVs/photos_to_scrap.csv'
 # input_file_2 = 'requested_CSVs/french_arthro_observations_list.csv'
 # family_file = 'requested_CSVs/biggest_french_member_by_obs.csv'
 # output_file = 'requested_CSVs/photos_to_scrap_NUMBER'+ str(number_to_keep) +'.csv'
+
+# number_to_keep = 1
+# input_file = 'requested_CSVs/2nd_french_arthro/photos_to_scrap_2nd.csv'
+# input_file_2 = 'requested_CSVs/french_arthro_observations_list.csv'
+# family_file = 'requested_CSVs/2nd_french_arthro/2nd_biggest_french_member_by_obs.csv'
+# output_file = 'requested_CSVs/2nd_french_arthro/photos_to_scrap_2nd_NUMBER'+ str(number_to_keep) +'.csv'
 # keep_each_element_number_n_with_different_observation(input_file, input_file_2, family_file, output_file, number_to_keep)

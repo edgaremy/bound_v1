@@ -3,7 +3,7 @@ from ultralytics import YOLO
 # Load a model
 # model = YOLO("yolov8n.yaml")  # build a new model from scratch
 # model = YOLO("yolov8n.pt")  # load a pretrained model (recommended for training)
-model = YOLO('runs/detect/train40/weights/best.pt') # load best.pt or last.pt of local model
+model = YOLO('runs/detect/train43/weights/best.pt') # load best.pt or last.pt of local model
 
 
 # Use the model
@@ -11,6 +11,6 @@ model = YOLO('runs/detect/train40/weights/best.pt') # load best.pt or last.pt of
 
 # Evaluate model performance on the validation set
 # metrics = model.val()
-metrics = model.val(data="/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT18/dataset/Arthropods_wave18.yaml")
+metrics = model.val(data="/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT21/dataset/Arthropods_wave21.yaml")
 
 #path = model.export(format="onnx")

@@ -45,4 +45,7 @@ def get_image_dimensions(image_path):
 # images_path = '/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT6/Pictures'
 # labels_path = '/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT6/dataset(prediction)/labels'
 # csv_file = '/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT6/dataset(prediction)/labels.csv'
+# images_path = '/mnt/disk1/datasets/iNaturalist/Arthropods/generalization/2nd_french_arthro/next_genus/Pictures'
+# labels_path = '/mnt/disk1/datasets/iNaturalist/Arthropods/generalization/2nd_french_arthro/next_genus/dataset(prediction)/labels'
+# csv_file = '/mnt/disk1/datasets/iNaturalist/Arthropods/generalization/2nd_french_arthro/next_genus/dataset(prediction)/labels.csv'
 # convert_labels_to_csv(images_path, labels_path, csv_file)

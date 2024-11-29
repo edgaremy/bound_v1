@@ -31,10 +31,16 @@ def subtract_csvs(csv1_path, csv2_path, csv1_column, csv2_column, output_path):
 
 
 # Example usage
-csv1_path = 'requested_CSVs/south_american_arthro/all_south_american_arthro_species.csv'
-csv2_path = 'requested_CSVs/all_french_arthropods.csv'
-csv1_column = 'taxon_id'
-csv2_column = 'taxon_id'
-output_path = 'requested_CSVs/south_american_arthro/all_south_american_arthro_species(no_french).csv'
+# csv1_path = 'requested_CSVs/south_american_arthro/all_south_american_arthro_species.csv'
+# csv2_path = 'requested_CSVs/all_french_arthropods.csv'
+# csv1_column = 'taxon_id'
+# csv2_column = 'taxon_id'
+# output_path = 'requested_CSVs/south_american_arthro/all_south_american_arthro_species(no_french).csv'
+
+csv1_path = 'requested_CSVs/south_american_arthro/all_south_american_arthro(no_french)(only_french_orders)wth_taxonid.csv'
+csv2_path = 'requested_CSVs/biggest_french_member_by_obs_hierarchy.csv'
+csv1_column = 'family'
+csv2_column = 'family'
+output_path = 'requested_CSVs/south_american_arthro/all_south_american_arthro(no_french_FAMILY)(only_french_orders).csv'
 
 subtract_csvs(csv1_path, csv2_path, csv1_column, csv2_column, output_path)

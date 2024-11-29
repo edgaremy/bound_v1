@@ -43,10 +43,16 @@ def intersect_csvs(csv1_path, csv2_path, csv1_column, csv2_column, output_path):
 # csv2_column = 'taxon_id'
 # output_path = 'requested_CSVs/south_american_arthro/all_south_american_arthro_species_tmp.csv'
 
-csv1_path = 'requested_CSVs/south_american_arthro/all_south_american_arthro_species.csv'
-csv2_path = 'requested_CSVs/all_french_arthropods.csv'
-csv1_column = 'taxon_id'
-csv2_column = 'taxon_id'
-output_path = 'requested_CSVs/south_american_arthro/all_south_american_arthro_species_intersect_test.csv'
+# csv1_path = 'requested_CSVs/south_american_arthro/all_south_american_arthro_species.csv'
+# csv2_path = 'requested_CSVs/all_french_arthropods.csv'
+# csv1_column = 'taxon_id'
+# csv2_column = 'taxon_id'
+# output_path = 'requested_CSVs/south_american_arthro/all_south_american_arthro_species_intersect_test.csv'
+
+csv1_path = 'requested_CSVs/south_american_arthro/south_american_arthro(no_french)hierarchy.csv'
+csv2_path = 'requested_CSVs/biggest_french_member_by_obs_hierarchy.csv'
+csv1_column = 'order'
+csv2_column = 'order'
+output_path = 'requested_CSVs/south_american_arthro/all_south_american_arthro(no_french)(only_french_orders).csv'
 
 intersect_csvs(csv1_path, csv2_path, csv1_column, csv2_column, output_path)

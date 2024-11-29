@@ -48,11 +48,17 @@ def get_images_from_inat(src_csv, dest_file, separate_classes_in_folders=False, 
 	
 	
 
-	
 # Usage example:
 # csv_number ='8'
 # dest_file = "/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT" + csv_number + "/"
 # src_csv = "requested_CSVs/photos_to_scrap_NUMBER" + csv_number + ".csv"
+# separate_classes_in_folders = False
+# img_size = "original" # "small" (240px)/ "medium" (500px)/ "large" (1024px)/ "original" (2024px)
+# get_images_from_inat(src_csv, dest_file, separate_classes_in_folders, img_size)
+
+# csv_number = "1"
+# src_csv = "requested_CSVs/2nd_french_arthro/photos_to_scrap_2nd_NUMBER" + csv_number + ".csv"
+# dest_file = "/mnt/disk1/datasets/iNaturalist/Arthropods/generalization/2nd_biggest_french_arthro/LIMIT" + csv_number + "/"
 # separate_classes_in_folders = False
 # img_size = "original" # "small" (240px)/ "medium" (500px)/ "large" (1024px)/ "original" (2024px)
 # get_images_from_inat(src_csv, dest_file, separate_classes_in_folders, img_size)
