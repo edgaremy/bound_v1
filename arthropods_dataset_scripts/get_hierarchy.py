@@ -48,9 +48,6 @@ def get_hierarchy_from_taxon_id(taxon_id):
             hierarchy[3] = db_df.iloc[0]['name']
             break
 
-
-
-
     return hierarchy
 
 # Returns a list of names as [class, order, family, genus, species]
