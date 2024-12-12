@@ -85,8 +85,8 @@ def save_class_count_as_csv(dataset_folder, csv_file):
 # dataset_folder = "/mnt/disk1/datasets/Projet_Bees_Detection_Basile/data_bees_detection/BD_1class/images"
 # get_dataset_size(dataset_folder, one_class_only=True)
 
-print("\nDataset Arthropods LIMIT16")
-dataset_folder = "/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT16/dataset/images"
+print("\nDataset Arthropods LIMIT22")
+dataset_folder = "/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT22/dataset/images"
 get_dataset_size(dataset_folder, one_class_only=True)
 
 # print("\nDataset Lepinoc")
