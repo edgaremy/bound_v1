@@ -62,8 +62,7 @@ def plot_class_hierarchy_repartition_from_taxon_id(dataset_folders):
     # fig.write_image("hierarchie_especes.svg")
 
 # Example Usage:
-dataset_folders = ["/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT16/dataset/images/test",
-                   "/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT16/dataset/images/train",
-                   "/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT16/dataset/images/val"]
-# dataset_folders = ["/mnt/disk1/datasets/iNaturalist/Arthropods/LIMIT7/dataset/images/val"]
+dataset_folders = ["/mnt/disk1/datasets/iNaturalist/Arthropods/FINAL_DATASET/images/test"]#,
+                #    "/mnt/disk1/datasets/iNaturalist/Arthropods/FINAL_DATASET/images/train",
+                #    "/mnt/disk1/datasets/iNaturalist/Arthropods/FINAL_DATASET/images/val"]
 plot_class_hierarchy_repartition_from_taxon_id(dataset_folders)
