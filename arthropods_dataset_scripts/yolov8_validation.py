@@ -135,7 +135,7 @@ def save_metrics(model_paths, yaml_path, export_csv_path, split='test'):
             wave_number += 1
 
 
-model_paths = ["train16", "train18", "train22", "train23", "train24", "train25", "train26", "train28", "train29", "train31", "train32", "train33", "train34", "train35", "train36", "train37", "train38"]
-yaml_path = "/mnt/disk1/datasets/iNaturalist/Arthropods/dataset17/Arthropods17.yaml"
+model_paths = ["train16", "train18", "train22", "train23", "train24", "train25", "train26", "train28", "train29", "train31", "train32", "train33", "train34", "train35", "train36", "train37", "train38", "train39", "train40", "train41", "train42"]
+yaml_path = "/mnt/disk1/datasets/iNaturalist/Arthropods/dataset22/Arthropods22.yaml"
 export_csv_path = "arthropods_dataset_scripts/test_metrics_tmp.csv"
 save_metrics(model_paths, yaml_path, export_csv_path, split='test')
