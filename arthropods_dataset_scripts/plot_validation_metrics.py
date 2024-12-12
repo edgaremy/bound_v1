@@ -82,5 +82,5 @@ def plot_metrics(csv_file, smoothing_degree=4):
     plt.show()
 
 # Example:
-csv_file = "arthropods_dataset_scripts/test_metrics_test17.csv"
+csv_file = "arthropods_dataset_scripts/test_metrics_test22.csv"
 plot_metrics(csv_file, smoothing_degree=4)
