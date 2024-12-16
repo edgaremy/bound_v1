@@ -69,4 +69,4 @@ def create_hierarchy_csv_from_img_taxon_id(directory_path, output_csv, include_t
         writer.writerows(hierarchy_data)
 
 # Example usage:
-create_hierarchy_csv_from_img_taxon_id('/home/eremy/datasets/iNaturalist/Arthropods/dataset22/images/train', 'arthro_dataset_hierarchy.csv', include_taxon_id=True)
+create_hierarchy_csv_from_img_taxon_id('/mnt/disk1/datasets/iNaturalist/Arthropods/FINAL_DATASET/images/train', 'arthro_dataset_hierarchy2.csv', include_taxon_id=True)
