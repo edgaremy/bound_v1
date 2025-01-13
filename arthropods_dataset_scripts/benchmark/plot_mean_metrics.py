@@ -38,30 +38,37 @@ def hierarchical_benchmark(csv_path, blacklist=None):
         results[level] = grouped
     
     # add image level to results:
-    image_level = calculate_metrics(df)
-    image_level['count'] = len(df)
-    results['image'] = image_level
+    df['line'] = range(len(df)) # add line number to the dataframe
+    grouped = df.groupby('line').apply(calculate_metrics).reset_index()
+    grouped['count'] = df.groupby('line').size().values
+    results['image'] = grouped
 
     return results
 
 def plot_mean_metrics(results, output, figsize=(15, 11), bar_width=0.8):
+    plt.rcParams["font.sans-serif"] = ["Nimbus Sans"]
+    plt.rcParams['font.size'] = 12
+    # slightly less black text:
+    ratio = '0.15'
+    plt.rcParams['text.color'] = ratio 
+    plt.rcParams['xtick.color'] = ratio
+    plt.rcParams['ytick.color'] = ratio
+    plt.rcParams['axes.labelcolor'] = ratio
+    
     fig, axs = plt.subplots(2, 3, figsize=figsize)
     levels = ['class', 'order', 'family', 'genus', 'specie', 'image']
     metrics = ['F1', 'precision', 'recall', 'mean_IoU']
     
     for i, level in enumerate(levels):
         ax = axs[i // 3, i % 3]
-        if level == 'image':
-            data = results[level].to_frame().T
-        else:
-            data = results[level]
-        
+        data = results[level]
         means = data[metrics].mean()
+
         colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728']
         means.plot(kind='bar', ax=ax, width=bar_width, color=colors)
         ax.set_title(f'Mean metrics at {level} level')
         ax.set_ylim(0, 1)
-        ax.set_xticklabels(means.index, rotation=45)
+        ax.set_xticklabels(means.index, rotation=0)
         ax.grid(True, which='both', linestyle='--', linewidth=0.5)
         ax.set_axisbelow(True)
         ax.set_yticks([i/10 for i in range(11)])  # Set y-axis ticks at 0.1 increments
@@ -70,18 +77,21 @@ def plot_mean_metrics(results, output, figsize=(15, 11), bar_width=0.8):
         for ax in axs.flat:
             for spine in ax.spines.values():
                 spine.set_visible(False)
-    
+            # Make the plot look nicer
+            ax.tick_params(which='both', direction='in', length=0) # remove small ticks next to the numbers    
+            ax.tick_params(axis='both', which='major', pad=6) # number further from the axis
+
     plt.tight_layout()
     plt.savefig(output)
 
 # Example usage:
 blacklist = {'class': ['Ostracoda', 'Ichthyostraca']}
 
-results = hierarchical_benchmark('arthropods_dataset_scripts/benchmark/validation_full_conf0.444yolo8n.csv', blacklist=blacklist)
-plot_mean_metrics(results, 'arthropods_dataset_scripts/benchmark/mean_metrics/mean_metrics_full_conf0.444yolo8n.png')
+results = hierarchical_benchmark('arthropods_dataset_scripts/benchmark/validation_conf0.444yolo8n.csv', blacklist=blacklist)
+plot_mean_metrics(results, 'arthropods_dataset_scripts/benchmark/mean_metrics/mean_metrics_conf0.444yolo8n.png')
 
-results = hierarchical_benchmark('arthropods_dataset_scripts/benchmark/validation_full_conf0.337yolo11m.csv', blacklist=blacklist)
-plot_mean_metrics(results, 'arthropods_dataset_scripts/benchmark/mean_metrics/mean_metrics_full_conf0.337yolo11m.png')
+results = hierarchical_benchmark('arthropods_dataset_scripts/benchmark/validation_conf0.337yolo11m.csv', blacklist=blacklist)
+plot_mean_metrics(results, 'arthropods_dataset_scripts/benchmark/mean_metrics/mean_metrics_conf0.337yolo11m.png')
 
 # Display mean results for each taxonomic level
 # for level, metrics in results.items():

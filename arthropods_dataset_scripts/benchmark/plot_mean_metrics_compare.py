@@ -38,9 +38,10 @@ def hierarchical_benchmark(csv_path, blacklist=None):
         results[level] = grouped
     
     # add image level to results:
-    image_level = calculate_metrics(df)
-    image_level['count'] = len(df)
-    results['image'] = image_level
+    df['line'] = range(len(df)) # add line number to the dataframe
+    grouped = df.groupby('line').apply(calculate_metrics).reset_index()
+    grouped['count'] = df.groupby('line').size().values
+    results['image'] = grouped
 
     return results
 
@@ -63,10 +64,7 @@ def plot_mean_metrics(list_of_results, labels, output, figsize=(15, 8), bar_widt
         data_list = []
         
         for results in list_of_results:
-            if level == 'image':
-                data = results[level].to_frame().T
-            else:
-                data = results[level]
+            data = results[level]
             data_list.append(data[metrics].mean())
         
         means_df = pd.DataFrame(data_list, index=labels)
