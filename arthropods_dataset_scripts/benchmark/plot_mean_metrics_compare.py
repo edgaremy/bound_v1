@@ -3,6 +3,7 @@ import ast
 import matplotlib
 # matplotlib.use('agg')  # Use non-interactive backend
 import matplotlib.pyplot as plt
+from pypalettes import load_cmap
 
 def calculate_metrics(group):
     TP = group['TP'].sum()
@@ -67,8 +68,9 @@ def plot_mean_metrics(list_of_results, labels, output, figsize=(15, 8), bar_widt
             data = results[level]
             data_list.append(data[metrics].mean())
         
+        colors = load_cmap("Emrld").colors
+        colors = [colors[1], colors[3], colors[4], colors[5]] # remove the first & third color
         means_df = pd.DataFrame(data_list, index=labels)
-        colors = plt.get_cmap('tab10').colors
         means_df.T.plot(kind='bar', ax=ax, width=bar_width, color=colors, legend=False)
         ax.set_title(f'Mean metrics at {level} level')
         ax.set_ylim(0.5, 1)
@@ -95,15 +97,19 @@ def plot_mean_metrics(list_of_results, labels, output, figsize=(15, 8), bar_widt
     plt.savefig(output)
 
 # Example usage:
-blacklist = {'class': ['Ostracoda', 'Ichthyostraca']}
+blacklist = None
+# blacklist = {'class': ['Ostracoda', 'Ichthyostraca']}
+# blacklist = {'class': ['Ostracoda', 'Ichthyostraca', 'Hexanauplia', 'Chilopoda', 'Diplopoda']}
+# blacklist = {'class': ['Ostracoda', 'Ichthyostraca', 'Hexanauplia', 'Chilopoda', 'Diplopoda', 'Entognatha', 'Entognatha', 'Branchiopoda', 'Malacostraca']}
 
-yolo8n = hierarchical_benchmark('arthropods_dataset_scripts/benchmark/validation_conf0.444yolo8n.csv', blacklist=blacklist)
+
+# yolo8n = hierarchical_benchmark('arthropods_dataset_scripts/benchmark/validation_conf0.444yolo8n.csv', blacklist=blacklist)
 yolo11n = hierarchical_benchmark('arthropods_dataset_scripts/benchmark/validation_conf0.437yolo11n.csv', blacklist=blacklist)
 yolo11s = hierarchical_benchmark('arthropods_dataset_scripts/benchmark/validation_conf0.372yolo11s.csv', blacklist=blacklist)
 yolo11m = hierarchical_benchmark('arthropods_dataset_scripts/benchmark/validation_conf0.337yolo11m.csv', blacklist=blacklist)
 yolo11l = hierarchical_benchmark('arthropods_dataset_scripts/benchmark/validation_conf0.413yolo11l.csv', blacklist=blacklist)
 
-list_of_results = [yolo8n, yolo11n, yolo11s, yolo11m, yolo11l]
-labels = ['YOLOv8n', 'YOLO11n', 'YOLO11s', 'YOLO11m', 'YOLO11l']
+list_of_results = [yolo11n, yolo11s, yolo11m, yolo11l]
+labels = ['YOLO11n', 'YOLO11s', 'YOLO11m', 'YOLO11l']
 plot_mean_metrics(list_of_results, labels, 'arthropods_dataset_scripts/benchmark/mean_metrics/mean_metrics_compare.png')
 
