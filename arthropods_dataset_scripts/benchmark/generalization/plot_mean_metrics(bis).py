@@ -85,13 +85,19 @@ def plot_mean_metrics(results, output, figsize=(15, 11), bar_width=0.8):
     plt.savefig(output)
 
 # Example usage:
-blacklist = {'class': ['Ostracoda', 'Ichthyostraca']}
+# blacklist = {'class': ['Ostracoda', 'Ichthyostraca']}
 
-results = hierarchical_benchmark('arthropods_dataset_scripts/benchmark/validation_conf0.444yolo8n.csv', blacklist=blacklist)
-plot_mean_metrics(results, 'arthropods_dataset_scripts/benchmark/mean_metrics/mean_metrics_conf0.444yolo8n.png')
+results = hierarchical_benchmark('arthropods_dataset_scripts/benchmark/generalization/same_genus_conf0.444yolo8n.csv')
+plot_mean_metrics(results, 'arthropods_dataset_scripts/benchmark/generalization/mean_metrics_same_genus_conf0.444yolo8n.png')
 
-results = hierarchical_benchmark('arthropods_dataset_scripts/benchmark/validation_conf0.337yolo11m.csv', blacklist=blacklist)
-plot_mean_metrics(results, 'arthropods_dataset_scripts/benchmark/mean_metrics/mean_metrics_conf0.337yolo11m.png')
+results = hierarchical_benchmark('arthropods_dataset_scripts/benchmark/generalization/next_genus_conf0.444yolo8n.csv')
+plot_mean_metrics(results, 'arthropods_dataset_scripts/benchmark/generalization/mean_metrics_next_genus_conf0.444yolo8n.png')
+
+results = hierarchical_benchmark('arthropods_dataset_scripts/benchmark/generalization/south_american_nowater_conf0.444yolo8n.csv')
+plot_mean_metrics(results, 'arthropods_dataset_scripts/benchmark/generalization/mean_metrics_south_american_nowater_conf0.444yolo8n.png')
+
+results = hierarchical_benchmark('arthropods_dataset_scripts/benchmark/generalization/south_american_wateronly_conf0.444yolo8n.csv')
+plot_mean_metrics(results, 'arthropods_dataset_scripts/benchmark/generalization/mean_metrics_south_american_wateronly_conf0.444yolo8n.png')
 
 # Display mean results for each taxonomic level
 # for level, metrics in results.items():

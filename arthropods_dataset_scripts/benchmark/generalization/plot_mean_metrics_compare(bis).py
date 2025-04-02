@@ -3,7 +3,6 @@ import ast
 import matplotlib
 # matplotlib.use('agg')  # Use non-interactive backend
 import matplotlib.pyplot as plt
-from pypalettes import load_cmap
 
 def calculate_metrics(group):
     TP = group['TP'].sum()
@@ -46,7 +45,7 @@ def hierarchical_benchmark(csv_path, blacklist=None):
 
     return results
 
-def plot_mean_metrics(list_of_results, labels, output, figsize=(15, 8), bar_width=0.8):
+def plot_mean_metrics(list_of_results, labels, output, figsize=(17, 8), bar_width=0.8):
     plt.rcParams["font.sans-serif"] = ["Nimbus Sans"]
     plt.rcParams['font.size'] = 12
     # slightly less black text:
@@ -68,9 +67,8 @@ def plot_mean_metrics(list_of_results, labels, output, figsize=(15, 8), bar_widt
             data = results[level]
             data_list.append(data[metrics].mean())
         
-        colors = load_cmap("Emrld").colors
-        colors = [colors[1], colors[3], colors[4], colors[5]] # remove the first & third color
         means_df = pd.DataFrame(data_list, index=labels)
+        colors = plt.get_cmap('tab10').colors
         means_df.T.plot(kind='bar', ax=ax, width=bar_width, color=colors, legend=False)
         ax.set_title(f'Mean metrics at {level} level')
         ax.set_ylim(0.5, 1)
@@ -97,19 +95,14 @@ def plot_mean_metrics(list_of_results, labels, output, figsize=(15, 8), bar_widt
     plt.savefig(output)
 
 # Example usage:
-blacklist = None
-# blacklist = {'class': ['Ostracoda', 'Ichthyostraca']}
-# blacklist = {'class': ['Ostracoda', 'Ichthyostraca', 'Hexanauplia', 'Chilopoda', 'Diplopoda']}
-# blacklist = {'class': ['Ostracoda', 'Ichthyostraca', 'Hexanauplia', 'Chilopoda', 'Diplopoda', 'Entognatha', 'Entognatha', 'Branchiopoda', 'Malacostraca']}
+blacklist = {}
 
+same_genus = hierarchical_benchmark('arthropods_dataset_scripts/benchmark/generalization/same_genus_conf0.444yolo8n.csv', blacklist=blacklist)
+next_genus = hierarchical_benchmark('arthropods_dataset_scripts/benchmark/generalization/next_genus_conf0.444yolo8n.csv', blacklist=blacklist)
+south_american_nowater = hierarchical_benchmark('arthropods_dataset_scripts/benchmark/generalization/south_american_nowater_conf0.444yolo8n.csv', blacklist=blacklist)
+south_american_wateronly = hierarchical_benchmark('arthropods_dataset_scripts/benchmark/generalization/south_american_wateronly_conf0.444yolo8n.csv', blacklist=blacklist)
 
-# yolo8n = hierarchical_benchmark('arthropods_dataset_scripts/benchmark/validation_conf0.444yolo8n.csv', blacklist=blacklist)
-yolo11n = hierarchical_benchmark('arthropods_dataset_scripts/benchmark/validation_conf0.437yolo11n.csv', blacklist=blacklist)
-yolo11s = hierarchical_benchmark('arthropods_dataset_scripts/benchmark/validation_conf0.372yolo11s.csv', blacklist=blacklist)
-yolo11m = hierarchical_benchmark('arthropods_dataset_scripts/benchmark/validation_conf0.337yolo11m.csv', blacklist=blacklist)
-yolo11l = hierarchical_benchmark('arthropods_dataset_scripts/benchmark/validation_conf0.413yolo11l.csv', blacklist=blacklist)
-
-list_of_results = [yolo11n, yolo11s, yolo11m, yolo11l]
-labels = ['YOLO11n', 'YOLO11s', 'YOLO11m', 'YOLO11l']
-plot_mean_metrics(list_of_results, labels, 'arthropods_dataset_scripts/benchmark/mean_metrics/mean_metrics_compare.png')
+list_of_results = [same_genus, next_genus, south_american_nowater, south_american_wateronly]
+labels = ['same Genus', 'next Genus', 'South American\n(no water)', 'South American\n(water only)']
+plot_mean_metrics(list_of_results, labels, '/home/eremy/Documents/CODE/bound_v1/arthropods_dataset_scripts/benchmark/generalization/mean_metrics_compare_ generalization.png')
 
